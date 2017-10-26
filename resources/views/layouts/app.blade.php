@@ -31,7 +31,7 @@
         <![endif]-->
 
         <!-- Google Font -->
-<!--        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">-->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
@@ -169,6 +169,7 @@
         <script src="{{ asset('js/adminlte.min.js') }}"></script>
 
 <!--<script src="dist/js/pages/dashboard.js"></script>-->
+        <script src="{{ asset('js/app.js') }}"></script>
 
     </body>
 </html>
