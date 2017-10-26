@@ -2,19 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Instructor;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Instructor;
+use Yajra\DataTables\DataTables;
+
 
 class InstructorController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if($request->ajax() && $request->wantsJson()){
+
+            return (new Datatables)->eloquent(User::query())->make(true);
+
+        }
+
+        return view('instructors.index', compact('data'));
     }
 
     /**

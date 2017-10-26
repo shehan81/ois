@@ -33,7 +33,7 @@
         <!-- Google Font -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     </head>
-    <body class="hold-transition skin-blue sidebar-mini">
+    <body class="hold-transition skin-blue sidebar-mini" ng-app="yukon">
         <div class="wrapper">
 
             <header class="main-header">
@@ -84,7 +84,7 @@
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu" data-widget="tree">
                         <li class="header">MAIN NAVIGATION</li>
-                        <li class="active treeview">
+                        <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-dashboard"></i> <span>Classes</span>
                                 <span class="pull-right-container">
@@ -97,7 +97,7 @@
                             </ul>
                         </li>
 
-                        <li class="treeview">
+                        <li class="active treeview">
                             <a href="#">
                                 <i class="fa fa-dashboard"></i> <span>Instructors</span>
                                 <span class="pull-right-container">
@@ -105,6 +105,7 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
+                                <li><a href="{{ route('instructors')}}"><i class="fa fa-circle-o"></i>Show Instructors</a></li>
                             </ul>
                         </li>
 
@@ -156,20 +157,18 @@
             <!-- /.content-wrapper -->
         </div>
         <!-- ./wrapper -->
-
-        <!-- jQuery 3 -->
         <script src="{{ asset('js/jquery.min.js') }}"></script>
-        <!-- jQuery UI 1.11.4 -->
         <script src="{{ asset('js/jquery-ui/jquery-ui.min.js') }}"></script>
-
-        <!-- Bootstrap 3.3.7 -->
+        <script src="{{ asset('js/angularjs/angular.min.js') }}"></script>
+        <script src="{{ asset('js/angularjs/angular-resource.min.js') }}"></script>
+        <script src="{{ asset('js/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('js/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-
-        <!-- AdminLTE App -->
         <script src="{{ asset('js/adminlte.min.js') }}"></script>
-
-<!--<script src="dist/js/pages/dashboard.js"></script>-->
+        
+        <!-- Yukon application angular javascripts-->
         <script src="{{ asset('js/app.js') }}"></script>
-
+        <script src="{{ asset('js/directives.js') }}"></script>
+        <script src="{{ asset('js/instructors.js') }}"></script>
     </body>
 </html>
