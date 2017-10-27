@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Instructor;
 use Yajra\DataTables\DataTables;
-use App\Helpers\ControllerHelper;
+use \App\Helpers\Helper as Helper;
 
 class InstructorController extends Controller {
 
@@ -21,10 +21,10 @@ class InstructorController extends Controller {
     public function index(Request $request) {
         if ($request->ajax() && $request->wantsJson()) {
             return (new Datatables)->eloquent(Instructor::query())
-                    ->addColumn('action', function ($model) {
-                            return ControllerHelper::getDataTableActions($model->instructor_id, ['view','edit','delete']);
-                        })
-                    ->make(true);
+                            ->addColumn('action', function ($model) {
+                                return Helper::getDataTableActions($model->instructor_id, [Helper::ACTIONS_EDIT => 'instructor.edit', Helper::ACTIONS_DELETE => 'instructor.destroy']);
+                            })
+                            ->make(true);
         }
         return view('instructors.index');
     }
@@ -35,7 +35,7 @@ class InstructorController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        //
+        return view('instructors.edit', ["method" => 'create']);
     }
 
     /**
@@ -45,7 +45,14 @@ class InstructorController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        //
+
+        $this->validateForm();
+
+        $data = $request->all();
+
+        Instructor::create($data);
+        return redirect()->route('instructor.index')
+                        ->with('success', 'Instructor created successfully');
     }
 
     /**
@@ -65,7 +72,9 @@ class InstructorController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Instructor $instructor) {
-        //
+
+        $instructor = Instructor::find($instructor->instructor_id);
+        return view('instructors.edit', compact('instructor'), ["method" => 'store']);
     }
 
     /**
@@ -76,7 +85,14 @@ class InstructorController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Instructor $instructor) {
-        //
+
+        $this->validateForm($instructor);
+
+        $data = $request->all();
+
+        Instructor::find($instructor->instructor_id)->update($data);
+        return redirect()->route('instructor.index')
+                        ->with('success', 'Instructor updated successfully');
     }
 
     /**
@@ -86,6 +102,30 @@ class InstructorController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Instructor $instructor) {
-        //
+        Instructor::find($instructor->instructor_id)->delete();
+        return redirect()->route('instructor.index')
+                        ->with('success', 'Instructor deleted successfully');
     }
+
+    /**
+     * 
+     * @param Instructor $instructor
+     * @return type
+     */
+    public function validateForm(Instructor $instructor = null) {
+
+        $email = 'required|email|unique:instructors';
+        switch (request()->method()) {
+            case "PUT":
+            case "PATCH":
+                $email = 'required|email|unique:instructors,email,' . $instructor->instructor_id . ',instructor_id';
+                break;
+        }
+        return request()->validate([
+                    'first_name' => 'required',
+                    'last_name' => 'required',
+                    'email' => $email
+        ]);
+    }
+
 }

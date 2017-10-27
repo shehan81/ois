@@ -15,7 +15,7 @@
                 
                 
                     {!! Form::open(array('route' => 'login','method'=>'POST', 'class'=> 'form-horizontal')) !!}
-                    @include('auth.forms.login')
+                    @include('forms.login')
                     {!! Form::close() !!}
                 </div>
             </div>

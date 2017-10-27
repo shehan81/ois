@@ -25,7 +25,7 @@
         
         <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}">
         
-        
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -42,7 +42,7 @@
 
             <header class="main-header">
                 <!-- Logo -->
-                <a href="index2.html" class="logo">
+                <a href="#" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini">{{ config('app.name', 'O.I.S') }}</span>
                     <!-- logo for regular state and mobile devices -->
@@ -109,7 +109,8 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="{{ route('instructors')}}"><i class="fa fa-circle-o"></i>Show Instructors</a></li>
+                                <li><a href="{{ route('instructor.index')}}"><i class="fa fa-circle-o"></i>Show Instructors</a></li>
+                                <li><a href="{{ route('instructor.create')}}"><i class="fa fa-circle-o"></i>Add Instructors</a></li>
                             </ul>
                         </li>
 
