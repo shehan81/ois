@@ -22,6 +22,10 @@
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="{{ asset('css/_all-skins.min.css') }}">
+        
+        <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}">
+        
+        
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -157,12 +161,13 @@
             <!-- /.content-wrapper -->
         </div>
         <!-- ./wrapper -->
-        <script src="{{ asset('js/jquery.min.js') }}"></script>
+        <script src="{{ asset('js/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('js/jquery-ui/jquery-ui.min.js') }}"></script>
         <script src="{{ asset('js/angularjs/angular.min.js') }}"></script>
         <script src="{{ asset('js/angularjs/angular-resource.min.js') }}"></script>
-        <script src="{{ asset('js/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-        <script src="{{ asset('js/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+        
+        <script src="{{ asset('js/jquery/jquery.dataTables.min.js') }}"></script>
+        
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('js/adminlte.min.js') }}"></script>
         

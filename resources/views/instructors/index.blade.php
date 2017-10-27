@@ -3,7 +3,7 @@
 @section('content')
 <section class="content-header">
     <h1>
-        Dashboard
+        Instructors
         <small>Control panel</small>
     </h1>
     <ol class="breadcrumb">
@@ -14,28 +14,26 @@
 <!-- Main content -->
 <section class="content" ng-controller="instuctorListCtrl">
     <!-- Small boxes (Stat box) -->
-    <div class="row">
-        <div class="box">
+    <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Data Table With Full Features</h3>
-                <a href="#" ng-click="getData();" >Data</a>
+                <h3 class="box-title"></h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <table class="table table-bordered" id="users-table">
+                <table class="table table-bordered" id="instructors-table">
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Name</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
                             <th>Email</th>
-                            <th>Created At</th>
-                            <th>Updated At</th>
+                            <th>Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                 </table>
             </div>
             <!-- /.box-body -->
         </div>
-    </div>
 </section>
 @endsection

@@ -2,31 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Instructor;
 use Yajra\DataTables\DataTables;
+use App\Helpers\ControllerHelper;
 
+class InstructorController extends Controller {
 
-class InstructorController extends Controller
-{
     public function __construct() {
         $this->middleware('auth');
     }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
-        if($request->ajax() && $request->wantsJson()){
-
-            return (new Datatables)->eloquent(User::query())->make(true);
-
+    public function index(Request $request) {
+        if ($request->ajax() && $request->wantsJson()) {
+            return (new Datatables)->eloquent(Instructor::query())
+                    ->addColumn('action', function ($model) {
+                            return ControllerHelper::getDataTableActions($model->instructor_id, ['view','edit','delete']);
+                        })
+                    ->make(true);
         }
-
-        return view('instructors.index', compact('data'));
+        return view('instructors.index');
     }
 
     /**
@@ -34,8 +34,7 @@ class InstructorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -45,8 +44,7 @@ class InstructorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
@@ -56,8 +54,7 @@ class InstructorController extends Controller
      * @param  \App\Instructor  $instructor
      * @return \Illuminate\Http\Response
      */
-    public function show(Instructor $instructor)
-    {
+    public function show(Instructor $instructor) {
         //
     }
 
@@ -67,8 +64,7 @@ class InstructorController extends Controller
      * @param  \App\Instructor  $instructor
      * @return \Illuminate\Http\Response
      */
-    public function edit(Instructor $instructor)
-    {
+    public function edit(Instructor $instructor) {
         //
     }
 
@@ -79,8 +75,7 @@ class InstructorController extends Controller
      * @param  \App\Instructor  $instructor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Instructor $instructor)
-    {
+    public function update(Request $request, Instructor $instructor) {
         //
     }
 
@@ -90,8 +85,7 @@ class InstructorController extends Controller
      * @param  \App\Instructor  $instructor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Instructor $instructor)
-    {
+    public function destroy(Instructor $instructor) {
         //
     }
 }
