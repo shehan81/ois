@@ -10,6 +10,14 @@
 }
 
 .datatable-action-btns {
-   float: left;
-   padding-right: 5px;
+    float: left;
+    padding-right: 5px;
+}
+
+.skin-blue .sidebar-menu > li.active > a, .skin-blue .sidebar-menu > li.menu-open > a {
+    color: #dd4b39;
+}
+
+.help-block {
+    color: #737373 !important;  
 }

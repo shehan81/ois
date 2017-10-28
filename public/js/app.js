@@ -1,13 +1,22 @@
-var app = angular.module('yukon', [
-    'ngResource',
-    'ois.directives',
-    'ois.instructors',
-], function ($interpolateProvider) {
-    $interpolateProvider.startSymbol('<%');
-    $interpolateProvider.endSymbol('%>');
-});
+/**
+ * Author : Shehan Fernando
+ * Module : Common application javascripts
+ * Date   : 2017-10-28
+ */
+(function ($) {
+    var App = {
+        init: function () {
+            var self = this;
+        },
+        
+    }
 
-//injecting headers for ajax requests
-app.config(['$httpProvider', function ($httpProvider) {
-        $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-    }]);
+    App.init();
+    
+})(jQuery);
+
+
+
+
+
+    

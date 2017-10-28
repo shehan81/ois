@@ -22,3 +22,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Route::get('/instructor', 'InstructorController@index')->name('instructors');
 
 Route::resource('instructor', 'InstructorController');
+
+Route::resource('subject', 'SubjectController');

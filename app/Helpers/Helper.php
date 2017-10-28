@@ -1,4 +1,9 @@
 <?php
+/**
+ * Author : Shehan Fernando
+ * Module : Helper class for controlelrs
+ * Date   : 2017-10-22
+ */
 
 namespace App\Helpers;
 
@@ -26,18 +31,17 @@ class Helper {
                         break;
                 }
             }
-            return '<span class="datatable-action-btns">' . implode("</span><span>", $html) . '</span>';
+            return '<span class="datatable-action-btns">' . implode("</span><span class='datatable-action-btns'>", $html) . '</span>';
         }
     }
     
     public static function getDeleteForm($route, $id){
         return ('<form action="'.route($route, $id).'" method="POST">
-                    <input type="submit" value="Delete" class="btn btn-danger form-button-delete">
-                    <input type="hidden" name="_method" value="DELETE">'.
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn-xs  btn btn-xs btn-danger confirmation-callback" data-placement="left">
+                    <span class="fa fa-remove" aria-hidden="true"> Delete</span></button>'.
                         csrf_field()
                  .'</form>');
-        
-        
     }
 
 }

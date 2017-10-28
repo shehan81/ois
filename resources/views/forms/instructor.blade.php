@@ -12,7 +12,8 @@
     
     <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
         <span class='text-danger'>*</span> <label for="email">E-mail</label>
-        {!! Form::email('email', null, array('placeholder' => 'Email','class' => 'form-control')) !!}
+        {!! Form::email('email', null, array('placeholder' => 'Ex: user@email.com','class' => 'form-control')) !!}
+        <p class="help-block">Email must be unique</p>
     </div>
     
     <div class="form-group {{ $errors->has('status') ? ' has-error' : '' }}">
@@ -22,5 +23,5 @@
 </div>
 
 <div class="box-footer">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Save</button>
 </div>

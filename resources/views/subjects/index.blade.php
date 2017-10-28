@@ -2,10 +2,10 @@
 
 @section('content')
 <section class="content-header">
-    <button type="button" class="btn bg-maroon btn-flat margin pull-right" onClick="location.href ='{{ route('instructor.create')}}'">Add Instructor</button>
+    <button type="button" class="btn bg-maroon btn-flat margin pull-right" onClick="location.href ='{{ route('subject.create')}}'">Add Subject</button>
     <h1>
-        Instructors
-        <small>Add, Edit & Delete instructors</small>
+        Subjects
+        <small>Add, Edit & Delete subjects</small>
     </h1>
 </section>
 <!-- Main content -->
@@ -15,7 +15,7 @@
         <div class="box-header">
             <ol class="breadcrumb">
                 <li><a href="{{ route('home')}}"><i class="fa fa-photo"></i> Home</a></li>
-                <li class="active">Instructors</li>
+                <li class="active">Subjects</li>
             </ol>
             <div class="row">
                 <div class="col-md-12">
@@ -31,13 +31,12 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <table class="table table-bordered" id="instructors-table">
+            <table class="table table-bordered" id="subject-table">
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
+                        <th>Code</th>
+                        <th>Title</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -53,6 +52,6 @@
         //translations via view composer
         var trans_del = JSON.parse('{!! $jstrans !!}').confirm_delete;
     </script>
-    <script src="{{ asset('js/modules/instructor.js') }}"></script>
+    <script src="{{ asset('js/modules/subject.js') }}"></script>
 @stop
 

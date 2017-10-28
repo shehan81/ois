@@ -1,4 +1,9 @@
 <?php
+/**
+ * Author : Shehan Fernando
+ * Module : Instructor
+ * Date   : 2017-10-20
+ */
 
 namespace App\Http\Controllers;
 
@@ -15,7 +20,7 @@ class InstructorController extends Controller {
 
     /**
      * Display a listing of the resource.
-     *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
@@ -118,7 +123,7 @@ class InstructorController extends Controller {
         switch (request()->method()) {
             case "PUT":
             case "PATCH":
-                $email = 'required|email|unique:instructors,email,' . $instructor->instructor_id . ',instructor_id';
+                $email .= ',email,' . $instructor->instructor_id . ',instructor_id';
                 break;
         }
         return request()->validate([
