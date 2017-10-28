@@ -117,5 +117,7 @@ return [
     */
 
     'attributes' => [],
+    
+    'phone' => 'Invalid :attribute number.'
 
 ];

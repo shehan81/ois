@@ -22,7 +22,7 @@
         </a>
         <ul class="treeview-menu">
             <li><a href="{{ route('instructor.index')}}"><i class="fa fa-circle-o"></i>Show Instructors</a></li>
-            <li><a href="{{ route('instructor.create')}}"><i class="fa fa-circle-o"></i>Add Instructor</a></li>
+            <li><a href="{{ route('instructor.create')}}"><i class="fa fa-circle-o"></i>Register Instructor</a></li>
         </ul>
     </li>
 
@@ -47,6 +47,8 @@
             </span>
         </a>
         <ul class="treeview-menu">
+            <li><a href="{{ route('student.index')}}"><i class="fa fa-circle-o"></i>Show Students</a></li>
+            <li><a href="{{ route('student.create')}}"><i class="fa fa-circle-o"></i>Register Student</a></li>
         </ul>
     </li>
 

@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Services\Validation;
 
 class AppServiceProvider extends ServiceProvider {
 
@@ -13,12 +15,19 @@ class AppServiceProvider extends ServiceProvider {
      * @return void
      */
     public function boot() {
-        //
+        //to inherit the default varchar length of a tbl field
         Schema::defaultStringLength(191);
 
+        //to process translations on pre dispatch
         view()->composer(
                 '*', 'App\Http\ViewComposers\TranslateComposer'
         );
+
+        //custom vlidations
+        
+        Validator::resolver(function($translator, $data, $rules, $messages) {
+            return new Validation($translator, $data, $rules, $messages);
+        });
     }
 
     /**

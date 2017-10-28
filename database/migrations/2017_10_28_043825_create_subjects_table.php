@@ -14,6 +14,7 @@ class CreateSubjectsTable extends Migration
     public function up()
     {
         Schema::create('subjects', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('subject_id');
             $table->char('code', 4)->unique();
             $table->string('title', 100);

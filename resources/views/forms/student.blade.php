@@ -16,6 +16,12 @@
         <p class="help-block">Email must be unique</p>
     </div>
     
+    <div class="form-group col-md-3 {{ $errors->has('phone') ? ' has-error' : '' }}">
+        <label for="phone">Phone</label>
+        {!! Form::text('phone', null, array('placeholder' => 'Ex: 0112458794','class' => 'form-control')) !!}
+        <i class="help-block">- Length : 10 Digits.</i>
+    </div>
+    
     <div class="form-group col-md-12 {{ $errors->has('status') ? ' has-error' : '' }}">
         <label for="status">Status</label>
         {!! Form::select('status', ['Active' => 'Active', 'Inactive' => 'Inactive'], null, ['class' => 'form-control']) !!}

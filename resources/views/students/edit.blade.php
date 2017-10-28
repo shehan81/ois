@@ -3,8 +3,8 @@
 @section('content')
 <section class="content-header">
     <h1>
-        Register an Instructor
-        <small> @if($method == 'create')New Instructor Registration form.@else Edit Instructor's Information @endif</small>
+        Register a Student
+        <small> @if($method == 'create')New Student Registration form.@else Edit Student's Information @endif</small>
     </h1>
 
 </section>
@@ -18,7 +18,7 @@
                 <div class="box-header with-border">
                     <ol class="breadcrumb">
                         <li><a href="{{ route('home')}}"><i class="fa fa-photo"></i> Home</a></li>
-                        <li><a href="{{ route('instructor.index')}}"> Instructors</a></li>
+                        <li><a href="{{ route('student.index')}}"> Students</a></li>
                         <li class="active">
                             @if($method == 'create')
                                 Create
@@ -41,12 +41,12 @@
                 </div>
 
                 @if($method == 'create')
-                    {!! Form::open(['method' => 'POST','route' => ['instructor.store']]) !!}
+                    {!! Form::open(['method' => 'POST','route' => ['student.store']]) !!}
                 @else
-                    {!! Form::model($instructor, ['method' => 'PATCH','route' => ['instructor.update', $instructor->instructor_id]]) !!}
+                    {!! Form::model($student, ['method' => 'PATCH','route' => ['student.update', $student->student_id]]) !!}
                 @endif
 
-                @include('forms.instructor')
+                @include('forms.student')
 
                 {!! Form::close() !!}
             </div>

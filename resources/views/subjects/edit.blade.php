@@ -4,7 +4,7 @@
 <section class="content-header">
     <h1>
         Subject
-        <small>Edit Subject Information</small>
+        <small> @if($method == 'create')New Subject create form.@else Edit Subject Information @endif</small>
     </h1>
 
 </section>
