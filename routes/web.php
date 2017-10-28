@@ -26,3 +26,5 @@ Route::resource('instructor', 'InstructorController');
 Route::resource('subject', 'SubjectController');
 
 Route::resource('student', 'StudentController');
+
+Route::resource('timeframe', 'TimeframeController');

@@ -30,7 +30,7 @@ class StudentController extends Controller {
                             ->addColumn('action', function ($model) {
                                 return Helper::getDataTableActions($model->student_id, [Helper::ACTIONS_EDIT => 'student.edit', Helper::ACTIONS_DELETE => 'student.destroy']);
                             })->editColumn('phone', function ($model) {
-                                return $model->phone ?: '-';
+                                return $model->phone ? : '-';
                             })
                             ->make(true);
         }

@@ -60,6 +60,8 @@
             </span>
         </a>
         <ul class="treeview-menu">
+            <li><a href="{{ route('timeframe.index')}}"><i class="fa fa-circle-o"></i>Show Time frames</a></li>
+            <li><a href="{{ route('timeframe.create')}}"><i class="fa fa-circle-o"></i>Add Time frame</a></li>
         </ul>
     </li>
 

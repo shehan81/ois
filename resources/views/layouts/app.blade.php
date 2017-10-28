@@ -18,6 +18,8 @@
 
         <link rel="stylesheet" href="{{ asset('css/lib/jquery.dataTables.min.css') }}">
         
+        <link rel="stylesheet" href="{{ asset('plugins/timepicker/bootstrap-timepicker.min.css') }}">
+        
         <!-- Theme style -->
         <link rel="stylesheet" href="{{ asset('css/template/AdminLTE.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/template/_all-skins.min.css') }}">

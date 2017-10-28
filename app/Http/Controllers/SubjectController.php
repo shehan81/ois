@@ -1,9 +1,11 @@
 <?php
+
 /**
  * Author : Shehan Fernando
  * Module : Subject
  * Date   : 2017-10-27
  */
+
 namespace App\Http\Controllers;
 
 use App\Models\Subject;
@@ -11,9 +13,8 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use \App\Helpers\Helper as Helper;
 
-class SubjectController extends Controller
-{
-    
+class SubjectController extends Controller {
+
     public function __construct() {
         $this->middleware('auth');
     }
@@ -23,8 +24,7 @@ class SubjectController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         if ($request->ajax() && $request->wantsJson()) {
             return (new Datatables)->eloquent(Subject::query())
                             ->addColumn('action', function ($model) {
@@ -40,9 +40,8 @@ class SubjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-         return view('subjects.edit', ["method" => 'create']);
+    public function create() {
+        return view('subjects.edit', ["method" => 'create']);
     }
 
     /**
@@ -51,8 +50,7 @@ class SubjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $this->validateForm();
 
         $data = $request->all();
@@ -68,8 +66,7 @@ class SubjectController extends Controller
      * @param  \App\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function show(Subject $subject)
-    {
+    public function show(Subject $subject) {
         //
     }
 
@@ -79,8 +76,7 @@ class SubjectController extends Controller
      * @param  \App\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function edit(Subject $subject)
-    {
+    public function edit(Subject $subject) {
         $subject = Subject::find($subject->subject_id);
         return view('subjects.edit', compact('subject'), ["method" => 'store']);
     }
@@ -92,9 +88,8 @@ class SubjectController extends Controller
      * @param  \App\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Subject $subject)
-    {
-       $this->validateForm($subject);
+    public function update(Request $request, Subject $subject) {
+        $this->validateForm($subject);
 
         $data = $request->all();
 
@@ -109,13 +104,12 @@ class SubjectController extends Controller
      * @param  \App\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Subject $subject)
-    {
+    public function destroy(Subject $subject) {
         Subject::find($subject->subject_id)->delete();
         return redirect()->route('subject.index')
                         ->with('success', 'Subject deleted successfully');
     }
-    
+
     /**
      * 
      * @param Subject $subject

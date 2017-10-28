@@ -4,27 +4,27 @@
  * Date   : 2017-10-28
  */
 (function ($) {
-    var Subject = {
+    var Timeframe = {
         init: function () {
             var self = this;
             self.list();
+            self.create();
         },
         list: function () {
             //init data table
-            var tbl = $('#subject-table');
+            var tbl = $('#time-table');
             tbl.DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: 'subject',
+                ajax: 'timeframe',
                 columns: [
-                    {data: 'subject_id', name: 'subject_id', visible:false},
-                    {data: 'code', name: 'code'},
-                    {data: 'title', name: 'title'},
-                    {data: 'status', name: 'status'},
+                    {data: 'timeframe_id', name: 'timeframe_id', visible: false},
+                    {data: 'from', name: 'from'},
+                    {data: 'to', name: 'to'},
                     {data: 'action', name: 'action', orderable: false, searchable: false}
                 ]
             });
-            
+
             //delete confirm deligation
             tbl.delegate(".confirmation-callback", "click", function ($e) {
                 if (!confirm(trans_del)) {
@@ -32,15 +32,21 @@
                     return false;
                 }
             });
+
+
+        },
+        create: function () {
+            //init time picker
+            $('.timepicker').timepicker({
+                showInputs: false,
+                showMeridian: true,
+                minuteStep : 30,
+            })
         }
     }
 
-    Subject.init();
-    
+    Timeframe.init();
+
 })(jQuery);
-
-
-
-
 
     
