@@ -50,6 +50,7 @@
     <script type="text/javascript">
         //translations via view composer
         var trans_del = JSON.parse('{!! $jstrans !!}').confirm_delete;
+        var is_edit = false;
     </script>
     <script src="{{ asset('js/modules/timeframe.js') }}"></script>
 @stop

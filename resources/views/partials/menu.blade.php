@@ -1,3 +1,15 @@
+<?php
+$segments = Request::segments();
+$module = 'home';
+$action = $module . '.' . 'index';
+if (count($segments) > 0) {
+    $module = $segments[0];
+    $action = $module . '.' . 'index';
+    if (!empty($segments[1])) {
+        $action = $module . '.' . $segments[1];
+    }
+}
+?>
 <ul class="sidebar-menu" data-widget="tree">
     <li class="header">MAIN NAVIGATION</li>
     <li class="treeview">
@@ -13,7 +25,7 @@
         </ul>
     </li>
 
-    <li class="treeview">
+    <li class="treeview {{ $module ==  'instructor' ? 'active' : ''  }}">
         <a href="#">
             <i class="fa fa-dashboard"></i> <span>Instructors</span>
             <span class="pull-right-container">
@@ -21,12 +33,12 @@
             </span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="{{ route('instructor.index')}}"><i class="fa fa-circle-o"></i>Show Instructors</a></li>
-            <li><a href="{{ route('instructor.create')}}"><i class="fa fa-circle-o"></i>Register Instructor</a></li>
+            <li class="{{ $action == 'instructor.index' ? 'active' : ''  }}"><a href="{{ route('instructor.index')}}"><i class="fa fa-circle-o"></i>Show Instructors</a></li>
+            <li class="{{ $action == 'instructor.create' ? 'active' : ''  }}"><a href="{{ route('instructor.create')}}"><i class="fa fa-circle-o"></i>Register Instructor</a></li>
         </ul>
     </li>
 
-    <li class="treeview">
+    <li class="treeview {{ $module ==  'subject' ? 'active' : ''  }}">
         <a href="#">
             <i class="fa fa-dashboard"></i> <span>Subjects</span>
             <span class="pull-right-container">
@@ -34,12 +46,12 @@
             </span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="{{ route('subject.index')}}"><i class="fa fa-circle-o"></i>Show Subjects</a></li>
-            <li><a href="{{ route('subject.create')}}"><i class="fa fa-circle-o"></i>Add Subject</a></li>
+            <li class="{{ $action == 'subject.index' ? 'active' : ''  }}"><a href="{{ route('subject.index')}}"><i class="fa fa-circle-o"></i>Show Subjects</a></li>
+            <li class="{{ $action == 'subject.create' ? 'active' : ''  }}"><a href="{{ route('subject.create')}}"><i class="fa fa-circle-o"></i>Add Subject</a></li>
         </ul>
     </li>
 
-    <li class="treeview">
+    <li class="treeview {{ $module ==  'student' ? 'active' : ''  }}">
         <a href="#">
             <i class="fa fa-dashboard"></i> <span>Students</span>
             <span class="pull-right-container">
@@ -47,12 +59,12 @@
             </span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="{{ route('student.index')}}"><i class="fa fa-circle-o"></i>Show Students</a></li>
-            <li><a href="{{ route('student.create')}}"><i class="fa fa-circle-o"></i>Register Student</a></li>
+            <li class="{{ $action == 'student.index' ? 'active' : ''  }}"><a href="{{ route('student.index')}}"><i class="fa fa-circle-o"></i>Show Students</a></li>
+            <li class="{{ $action == 'student.create' ? 'active' : ''  }}"><a href="{{ route('student.create')}}"><i class="fa fa-circle-o"></i>Register Student</a></li>
         </ul>
     </li>
 
-    <li class="treeview">
+    <li class="treeview {{ $module ==  'timeframe' ? 'active' : ''  }}">
         <a href="#">
             <i class="fa fa-dashboard"></i> <span>Time frames</span>
             <span class="pull-right-container">
@@ -60,8 +72,8 @@
             </span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="{{ route('timeframe.index')}}"><i class="fa fa-circle-o"></i>Show Time frames</a></li>
-            <li><a href="{{ route('timeframe.create')}}"><i class="fa fa-circle-o"></i>Add Time frame</a></li>
+            <li class="{{ $action == 'timeframe.index' ? 'active' : ''  }}"><a href="{{ route('timeframe.index')}}"><i class="fa fa-circle-o"></i>Show Time frames</a></li>
+            <li class="{{ $action == 'timeframe.create' ? 'active' : ''  }}"><a href="{{ route('timeframe.create')}}"><i class="fa fa-circle-o"></i>Add Time frame</a></li>
         </ul>
     </li>
 

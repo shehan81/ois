@@ -12,6 +12,7 @@ use App\Models\Timeframe;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use \App\Helpers\Helper as Helper;
+use Exceptions;
 
 class TimeframeController extends Controller {
 
@@ -36,6 +37,7 @@ class TimeframeController extends Controller {
                             })
                             ->make(true);
         }
+
         return view('timeframes.index');
     }
 
@@ -55,13 +57,9 @@ class TimeframeController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        //$this->validateForm();
-
         $data = $request->all();
-        
-        //converting meridian to hh:mm:ss
-        $data['from'] = Helper::convertFromTime($data['from']);
-        $data['to'] = Helper::convertFromTime($data['to']);
+
+        $this->validateForm(null, $data);
 
         Timeframe::create($data);
         return redirect()->route('timeframe.index')
@@ -86,6 +84,7 @@ class TimeframeController extends Controller {
      */
     public function edit(Timeframe $timeframe) {
         $timeframe = Timeframe::find($timeframe->timeframe_id);
+
         return view('timeframes.edit', compact('timeframe'), ["method" => 'store']);
     }
 
@@ -97,17 +96,21 @@ class TimeframeController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Timeframe $timeframe) {
-        //$this->validateForm($timeframe);
+        $this->validateForm($timeframe);
 
         $data = $request->all();
 
-        //converting meridian to hh:mm:ss
-        $data['from'] = Helper::convertFromTime($data['from']);
-        $data['to'] = Helper::convertFromTime($data['to']);
-
-        Timeframe::find($timeframe->timeframe_id)->update($data);
-        return redirect()->route('timeframe.index')
-                        ->with('success', 'Time frame updated successfully');
+        try {
+            Timeframe::find($timeframe->timeframe_id)->update($data);
+        } catch (Illuminate\Database\QueryException $e) {
+            dd($e);
+            //$errorCode = $e->errorInfo[1];
+           
+            
+        }
+            
+//        return redirect()->route('timeframe.index')
+//                        ->with('success', 'Time frame updated successfully');
     }
 
     /**
@@ -127,18 +130,28 @@ class TimeframeController extends Controller {
      * @param Timeframe $timeframe
      * @return type
      */
-    public function validateForm(Timeframe $timeframe = null) {
+    public function validateForm(Timeframe $timeframe = null, $data = []) {
 
-        $code = 'required|min:4|max:4|regex:/(^[A-Za-z0-9^\S]+$)+/|unique:timeframes';
+        //custom validators
+        $is_conflict = "is_conflicts:h:i A";
+        $is_greater = "is_time_greater:h:i A";
+        //$is_unique = "is_unique_times:from | unique:timeframes,to";
+
         switch (request()->method()) {
             case "PUT":
             case "PATCH":
-                $code .= ',code,' . $timeframe->timeframe_id . ',timeframe_id';
+                $is_greater .= ',' . $timeframe->from;
+                $is_conflict .= ',' . $timeframe->timeframe_id;
+                break;
+
+            case "POST":
+                $is_greater .= ',' . $data['from'];
                 break;
         }
+
         return request()->validate([
-                    'code' => $code,
-                    'title' => 'required',
+                    'from' => 'required|' . $is_conflict,
+                    'to' => 'required|' . $is_greater . '|' . $is_conflict,
         ]);
     }
 

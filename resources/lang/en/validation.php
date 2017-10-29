@@ -118,6 +118,8 @@ return [
 
     'attributes' => [],
     
-    'phone' => 'Invalid :attribute number.'
+    'phone' => 'Invalid :attribute number.',
+    'is_time_greater' => '":attribute" time must be greater than "from" time.',
+    'is_conflicts' => 'Given time frame conflicts with another.'
 
 ];

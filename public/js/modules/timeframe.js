@@ -8,7 +8,9 @@
         init: function () {
             var self = this;
             self.list();
-            self.create();
+            
+            if(is_edit)
+                self.create();
         },
         list: function () {
             //init data table
@@ -16,6 +18,7 @@
             tbl.DataTable({
                 processing: true,
                 serverSide: true,
+                searching: false,
                 ajax: 'timeframe',
                 columns: [
                     {data: 'timeframe_id', name: 'timeframe_id', visible: false},
@@ -41,6 +44,7 @@
                 showInputs: false,
                 showMeridian: true,
                 minuteStep : 30,
+                defaultTime : '08:00 AM'
             })
         }
     }

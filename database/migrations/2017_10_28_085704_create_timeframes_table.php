@@ -18,6 +18,7 @@ class CreateTimeframesTable extends Migration
             $table->time('from');
             $table->time('to');
             $table->timestamps();
+            $table->unique(['from', 'to']);
         });
     }
 

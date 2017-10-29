@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Services\Validation;
+use App\Exceptions\CustomHandler;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 
 class AppServiceProvider extends ServiceProvider {
 
@@ -24,10 +26,12 @@ class AppServiceProvider extends ServiceProvider {
         );
 
         //custom vlidations
-        
         Validator::resolver(function($translator, $data, $rules, $messages) {
             return new Validation($translator, $data, $rules, $messages);
         });
+        
+        //custom exceptons
+        $this->app->singleton(ExceptionHandler::class, CustomHandler::class);
     }
 
     /**
