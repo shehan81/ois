@@ -11,8 +11,10 @@ namespace App\Http\Controllers;
 use App\Models\Timeframe;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use \App\Helpers\Helper as Helper;
-use Exceptions;
+use App\Helpers\Helper as Helper;
+use \Illuminate\Database\QueryException;
+use \Illuminate\Support\MessageBag;
+use App\Exceptions\CustomHandler;
 
 class TimeframeController extends Controller {
 
@@ -61,7 +63,17 @@ class TimeframeController extends Controller {
 
         $this->validateForm(null, $data);
 
-        Timeframe::create($data);
+        try {
+
+            Timeframe::create($data);
+        } catch (QueryException $e) {
+            if ($e->getCode() == CustomHandler::DUPLICATE_ERROR) {
+
+                $errors = (new MessageBag())->add('validation.duplicate_time', 'Duplicate times are given.');
+
+                return view('timeframes.edit', ["method" => 'create'])->withErrors($errors);
+            }
+        }
         return redirect()->route('timeframe.index')
                         ->with('success', 'Time frame created successfully');
     }
@@ -102,15 +114,17 @@ class TimeframeController extends Controller {
 
         try {
             Timeframe::find($timeframe->timeframe_id)->update($data);
-        } catch (Illuminate\Database\QueryException $e) {
-            dd($e);
-            //$errorCode = $e->errorInfo[1];
-           
-            
+        } catch (QueryException $e) {
+            if ($e->getCode() == CustomHandler::DUPLICATE_ERROR) {
+
+                $errors = (new MessageBag())->add('validation.duplicate_time', 'Duplicate times are given.');
+
+                return view('timeframes.edit', compact('timeframe'), ["method" => 'store'])->withErrors($errors);
+            }
         }
-            
-//        return redirect()->route('timeframe.index')
-//                        ->with('success', 'Time frame updated successfully');
+
+        return redirect()->route('timeframe.index')
+                        ->with('success', 'Time frame updated successfully');
     }
 
     /**

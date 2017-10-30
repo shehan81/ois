@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider {
         });
         
         //custom exceptons
-        $this->app->singleton(ExceptionHandler::class, CustomHandler::class);
+        //$this->app->singleton(ExceptionHandler::class, CustomHandler::class);
     }
 
     /**

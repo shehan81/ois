@@ -5,8 +5,11 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Database\QueryException;
+use App\Exceptions\DuplicateException;
 
 class CustomHandler extends ExceptionHandler {
+    
+    const DUPLICATE_ERROR = 23000;
 
     /**
      * Render an exception into an HTTP response.
@@ -17,14 +20,11 @@ class CustomHandler extends ExceptionHandler {
      */
     public function render($request, Exception $exception) {
 
-        dd(redirect());
-        if ($exception instanceof QueryException) {
-            //dd($exception->errorInfo);
-             return redirect()->back()->with('errors', array('test'));
-            //dd($error = $exception->errorInfo);
-           // return response()->view('errors.404', [], 404);
-        }
-
+        //catching the QueryException and throwing back
+//        if ($exception instanceof QueryException) {
+//          
+//        }
+        
         return parent::render($request, $exception);
     }
     

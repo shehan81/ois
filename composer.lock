@@ -2629,16 +2629,16 @@
         },
         {
             "name": "yajra/laravel-datatables-buttons",
-            "version": "v3.0.2",
+            "version": "v3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables-buttons.git",
-                "reference": "d730cf7df4c08c65bfcf5ca188cdb50481666b70"
+                "reference": "bdac3a82432388381bab6d83a3ea5fe4f4b3ace3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables-buttons/zipball/d730cf7df4c08c65bfcf5ca188cdb50481666b70",
-                "reference": "d730cf7df4c08c65bfcf5ca188cdb50481666b70",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables-buttons/zipball/bdac3a82432388381bab6d83a3ea5fe4f4b3ace3",
+                "reference": "bdac3a82432388381bab6d83a3ea5fe4f4b3ace3",
                 "shasum": ""
             },
             "require": {
@@ -2689,7 +2689,7 @@
                 "jquery",
                 "laravel"
             ],
-            "time": "2017-10-17T03:19:43+00:00"
+            "time": "2017-10-27T07:50:56+00:00"
         },
         {
             "name": "yajra/laravel-datatables-fractal",
@@ -2810,16 +2810,16 @@
         },
         {
             "name": "yajra/laravel-datatables-oracle",
-            "version": "v8.3.0",
+            "version": "v8.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables.git",
-                "reference": "0c68668a46d4488127bf0978d86a3de55ff42109"
+                "reference": "b5ecb425414b1baf2ce2f82fe2849e77e51230e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/0c68668a46d4488127bf0978d86a3de55ff42109",
-                "reference": "0c68668a46d4488127bf0978d86a3de55ff42109",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/b5ecb425414b1baf2ce2f82fe2849e77e51230e0",
+                "reference": "b5ecb425414b1baf2ce2f82fe2849e77e51230e0",
                 "shasum": ""
             },
             "require": {
@@ -2876,7 +2876,7 @@
                 "jquery",
                 "laravel"
             ],
-            "time": "2017-10-26T12:05:45+00:00"
+            "time": "2017-10-27T06:13:31+00:00"
         }
     ],
     "packages-dev": [
