@@ -1,16 +1,18 @@
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-            <label for="email" class="col-md-4 control-label">Username</label>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 {{ csrf_field() }}
-                
-                {!! Form::text('username', null, array('placeholder' => 'Username','class' => 'form-control')) !!}
-                
+
+                <div class="form-group has-feedback">
+                    {!! Form::text('username', null, array('placeholder' => 'Username','class' => 'form-control')) !!}
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+
                 @if ($errors->has('username'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('username') }}</strong>
-                    </span>
+                <span class="help-block">
+                    <strong>{{ $errors->first('username') }}</strong>
+                </span>
                 @endif
             </div>
         </div>
@@ -18,13 +20,15 @@
 
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-            <label for="password" class="col-md-4 control-label">Password</label>
-            <div class="col-md-6">
-                {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control')) !!}
+            <div class="col-md-12">
+                <div class="form-group has-feedback">
+                    {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control')) !!}
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
                 @if ($errors->has('password'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('password') }}</strong>
-                    </span>
+                <span class="help-block">
+                    <strong>{{ $errors->first('password') }}</strong>
+                </span>
                 @endif
             </div>
         </div>
@@ -43,7 +47,11 @@
         </div>
     </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-        <button type="submit" class="btn btn-primary">Login</button>
+    <div class="row">
+        <div class="col-xs-8">
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3">
+            <button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
+        </div>
     </div>
 </div>

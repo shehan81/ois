@@ -139,7 +139,6 @@ class TimeframeController extends Controller {
         try {
             DB::transaction(function () use ($timeframe) {
 
-
                 Timeframe::find($timeframe->timeframe_id)->delete();
                 return redirect()->route('timeframe.index')
                                 ->with('success', 'Time frame deleted successfully');

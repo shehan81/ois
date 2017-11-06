@@ -1,25 +1,11 @@
-@extends('layouts.app')
-
+@extends('layouts.wire')
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
-                <div class="panel-body">
-                @if($errors->has('login'))
-                <div class="alert alert-danger center-block" style="text-align: center">
-                    {{$errors->first('login')}}
-                </div>
-                @endif
-                
-                
-                    {!! Form::open(array('route' => 'login','method'=>'POST', 'class'=> 'form-horizontal')) !!}
-                    @include('forms.login')
-                    {!! Form::close() !!}
-                </div>
-            </div>
-        </div>
+<div class="login-box">
+    <div class="login-box-body">
+        <p class="login-box-msg">Login</p>
+        {!! Form::open(array('route' => 'login','method'=>'POST')) !!}
+        @include('forms.login')
+        {!! Form::close() !!}
     </div>
 </div>
 @endsection
