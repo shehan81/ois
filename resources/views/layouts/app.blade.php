@@ -60,6 +60,11 @@
                         <ul class="nav navbar-nav">
                             <!-- Messages: style can be found in dropdown.less-->
                             <li class="dropdown user user-menu">
+                                <a href="{{ route('home') }}" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="hidden-xs">Home</span>
+                                </a>
+                            </li>
+                            <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <span class="hidden-xs">{{ isset(Auth::user()->email) ? Auth::user()->email : '' }}</span>
                                 </a>

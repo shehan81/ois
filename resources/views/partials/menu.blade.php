@@ -78,10 +78,4 @@ if (count($segments) > 0) {
             <li class="{{ $action == 'assign' ? 'active' : ''  }}"><a href="{{ route('assign')}}"><i class="fa fa-circle-o"></i>Assign Students</a></li>
         </ul>
     </li>
-
-
-
-    <li class="header">Shortcuts</li>
-    <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Classes</span></a></li>
-    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Instructors</span></a></li>
 </ul>

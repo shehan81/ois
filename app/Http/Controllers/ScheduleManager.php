@@ -10,6 +10,7 @@ use App\Models\ClassStudent;
 use App\Models\Subject;
 use App\Models\Instructor;
 use App\Helpers\Helper;
+use Illuminate\Support\Facades\DB;
 
 class ScheduleManager extends Controller {
 

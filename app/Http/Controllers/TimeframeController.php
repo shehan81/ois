@@ -15,6 +15,7 @@ use App\Helpers\Helper as Helper;
 use \Illuminate\Database\QueryException;
 use \Illuminate\Support\MessageBag;
 use App\Exceptions\CustomHandler;
+use Illuminate\Support\Facades\DB;
 
 class TimeframeController extends Controller {
 
@@ -134,9 +135,19 @@ class TimeframeController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Timeframe $timeframe) {
-        Timeframe::find($timeframe->timeframe_id)->delete();
-        return redirect()->route('timeframe.index')
-                        ->with('success', 'Time frame deleted successfully');
+
+        try {
+            DB::transaction(function () use ($timeframe) {
+
+
+                Timeframe::find($timeframe->timeframe_id)->delete();
+                return redirect()->route('timeframe.index')
+                                ->with('success', 'Time frame deleted successfully');
+            });
+        } catch (\Exception $e) {
+            return redirect()->route('timeframe.index')
+                            ->with('error', 'Error occurred! Couldn\'t delete at this moment. May be record already in use!');
+        }
     }
 
     /**

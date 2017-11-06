@@ -6,7 +6,7 @@ use App\Models\ClassSchedule;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use \App\Helpers\Helper as Helper;
-
+use Illuminate\Support\Facades\DB;
 
 class ClassScheduleController extends Controller {
 
@@ -120,42 +120,18 @@ class ClassScheduleController extends Controller {
      * @param  \App\ClassSchedule  $classSchedule
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ClassSchedule $classSchedule) {
-        //
-    }
+    public function destroy(ClassSchedule $class) {
+        try {
+            DB::transaction(function () use ($class) {
 
-    /**
-     * Assign students main page
-     * @return type
-     */
-    public function assign() {
-
-        return view('classes.assign', ["method" => 'create']);
-    }
-
-    /**
-     * Saving assigned students
-     * @param Request $request
-     * @return type
-     */
-    public function assignStore(Request $request) {
-
-        request()->validate([
-            'class_id' => 'required',
-            'students' => 'required'
-        ]);
-
-        $data = $request->all();
-
-        if (!empty($data['students'])) {
-            foreach ($data['students'] as $student_id) {
-                $data['student_id'] = $student_id;
-                ClassStudent::create($data);
-            }
+                ClassSchedule::find($class->class_id)->delete();
+                return redirect()->route('class.index')
+                                ->with('success', 'Class deleted successfully');
+            });
+        } catch (\Exception $e) {
+            return redirect()->route('class.index')
+                            ->with('error', 'Error occurred! Couldn\'t delete at this moment. May be record already in use!');
         }
-
-        return redirect()->route('assign')
-                        ->with('success', 'Selected students assigned successfully');
     }
 
 }

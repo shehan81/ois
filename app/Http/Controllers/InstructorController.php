@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\Instructor;
 use Yajra\DataTables\DataTables;
 use \App\Helpers\Helper as Helper;
+use Illuminate\Support\Facades\DB;
 
 class InstructorController extends Controller {
 
@@ -55,12 +56,12 @@ class InstructorController extends Controller {
         $this->validateForm();
 
         $data = $request->all();
-        
+
         //serializing subjects
-        if(isset($data['subjects'])){
+        if (isset($data['subjects'])) {
             $data['subjects'] = serialize($data['subjects']);
         }
-        
+
         Instructor::create($data);
         return redirect()->route('instructor.index')
                         ->with('success', 'Instructor created successfully');
@@ -85,11 +86,7 @@ class InstructorController extends Controller {
     public function edit(Instructor $instructor) {
 
         $instructor = Instructor::find($instructor->instructor_id);
-        
-        if(!empty($instructor->subjects)){
-            $instructor->subjects = unserialize($instructor->subjects);
-        }
-        
+
         return view('instructors.edit', compact('instructor'), ["method" => 'store', 'subjects' => Helper::getSubjects()]);
     }
 
@@ -105,13 +102,13 @@ class InstructorController extends Controller {
         $this->validateForm($instructor);
 
         $data = $request->all();
-        
+
         //serializing subjects
-        if(!empty($data['subjects'])){
+        if (!empty($data['subjects'])) {
             $data['subjects'] = serialize($data['subjects']);
         }
-        
-        
+
+
         Instructor::find($instructor->instructor_id)->update($data);
         return redirect()->route('instructor.index')
                         ->with('success', 'Instructor updated successfully');
@@ -124,9 +121,18 @@ class InstructorController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Instructor $instructor) {
-        Instructor::find($instructor->instructor_id)->delete();
-        return redirect()->route('instructor.index')
-                        ->with('success', 'Instructor deleted successfully');
+
+        try {
+            DB::transaction(function () use ($instructor) {
+
+                Instructor::find($instructor->instructor_id)->delete();
+                return redirect()->route('instructor.index')
+                                ->with('success', 'Instructor deleted successfully');
+            });
+        } catch (\Exception $e) {
+            return redirect()->route('instructor.index')
+                            ->with('error', 'Error occurred! Couldn\'t delete at this moment. May be record already in use!');
+        }
     }
 
     /**

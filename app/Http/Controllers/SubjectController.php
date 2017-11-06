@@ -12,6 +12,7 @@ use App\Models\Subject;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use \App\Helpers\Helper as Helper;
+use Illuminate\Support\Facades\DB;
 
 class SubjectController extends Controller {
 
@@ -105,9 +106,19 @@ class SubjectController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Subject $subject) {
-        Subject::find($subject->subject_id)->delete();
-        return redirect()->route('subject.index')
-                        ->with('success', 'Subject deleted successfully');
+
+        try {
+            DB::transaction(function () use ($subject) {
+
+
+                Subject::find($subject->subject_id)->delete();
+                return redirect()->route('subject.index')
+                                ->with('success', 'Subject deleted successfully');
+            });
+        } catch (\Exception $e) {
+            return redirect()->route('subject.index')
+                            ->with('error', 'Error occurred! Couldn\'t delete at this moment. May be record already in use!');
+        }
     }
 
     /**

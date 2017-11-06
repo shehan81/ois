@@ -12,6 +12,7 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use \App\Helpers\Helper as Helper;
+use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller {
 
@@ -107,9 +108,21 @@ class StudentController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Student $student) {
-        Student::find($student->student_id)->delete();
-        return redirect()->route('student.index')
-                        ->with('success', 'Student deleted successfully');
+
+        try {
+
+            DB::transaction(function () use ($student) {
+
+                Student::find($student->student_id)->delete();
+
+                return redirect()->route('student.index')
+                                ->with('success', 'Student deleted successfully');
+            });
+        } catch (\Exception $e) {
+            
+            return redirect()->route('student.index')
+                            ->with('error', 'Error occurred! Couldn\'t delete at this moment. May be record already in use!');
+        }
     }
 
     /**

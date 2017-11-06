@@ -23,17 +23,17 @@ Route::resource('instructor', 'InstructorController');
 
 Route::resource('subject', 'SubjectController');
 
-//Route::get('/class/students', 'ClassStudentController@index')->name('class_student');
-
 Route::resource('student', 'StudentController');
 
 Route::resource('timeframe', 'TimeframeController');
 
-Route::get('/class/assign', 'ClassScheduleController@assign')->name('assign');
+Route::get('/class/assign', 'ClassStudentController@assign')->name('assign');
 
-Route::post('/class/assign', 'ClassScheduleController@assignStore')->name('assign_student');
+Route::post('/class/assign', 'ClassStudentController@assignStore')->name('assign_student');
 
 Route::get('/class/student/{id}', 'ClassStudentController@index')->name('class_student');
+
+Route::delete('/class/student/distroy/{id}', 'ClassStudentController@destroy')->name('class_destroy');
 
 Route::resource('class', 'ClassScheduleController');
 
