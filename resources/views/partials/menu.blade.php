@@ -75,6 +75,7 @@ if (count($segments) > 0) {
         <ul class="treeview-menu">
             <li class="{{ $action == 'class.index' ? 'active' : ''  }}"><a href="{{ route('class.index')}}"><i class="fa fa-circle-o"></i>Show Classes</a></li>
             <li class="{{ $action == 'class.create' ? 'active' : ''  }}"><a href="{{ route('class.create')}}"><i class="fa fa-circle-o"></i>Add Class</a></li>
+            <li class="{{ $action == 'assign' ? 'active' : ''  }}"><a href="{{ route('assign')}}"><i class="fa fa-circle-o"></i>Assign Students</a></li>
         </ul>
     </li>
 

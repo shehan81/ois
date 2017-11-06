@@ -18,11 +18,17 @@ use Illuminate\Http\Request;
 //});
 
 
-Route::get('/schedule', 'ScheduleManager@getAvailableTimeframes');
+Route::get('/schedule', 'ScheduleManager@getSchedule');
 
 Route::get('/schedule/days', 'ScheduleManager@getDays');
 
 Route::get('/schedule/timeframes', 'ScheduleManager@getAvailableTimeframes');
+
+Route::get('/schedule/get/timeframes', 'ScheduleManager@getScheduleTimeframes');
+
+Route::get('/schedule/get/classes', 'ScheduleManager@getClassesForTimeframe');
+
+Route::get('/schedule/get/students', 'ScheduleManager@getStudentsAvailable');
 
 Route::get('/schedule/subjects', 'ScheduleManager@getClassSubjects');
 

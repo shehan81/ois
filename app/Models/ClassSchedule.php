@@ -24,7 +24,7 @@ class ClassSchedule extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function timeframe() {
-        return $this->belongsTo(Timeframe::class);
+        return $this->belongsTo(Timeframe::class, 'timeframe_id');
     }
     
     /**
@@ -33,7 +33,7 @@ class ClassSchedule extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function subject() {
-        return $this->belongsTo(Subject::class);
+        return $this->belongsTo(Subject::class, 'subject_id');
     }
     
     /**
@@ -42,6 +42,6 @@ class ClassSchedule extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function instructor() {
-        return $this->belongsTo(Instructor::class);
+        return $this->belongsTo(Instructor::class, 'instructor_id');
     }
 }

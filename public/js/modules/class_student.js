@@ -1,33 +1,30 @@
 /**
  * Author : Shehan Fernando
  * Module : Instructor
- * Date   : 2017-11-02
+ * Date   : 2017-11-06
  */
 (function ($) {
-    var ClassSchedule = {
+    var Student = {
         init: function () {
             var self = this;
             self.list();
-
-            if (is_edit)
-                self.create();
         },
         list: function () {
-
             //init data table
-            var tbl = $('#class-table');
+            var tbl = $('#student-table');
             tbl.DataTable({
                 processing: true,
                 serverSide: true,
-                searching: false,
-                ajax: 'class',
+                ajax: {
+                    url : 'student',
+                    data : function (d) {
+                        d.class_id = _id;
+                    }
+                },
                 columns: [
-                    {data: 'class_id', name: 'class_id', visible: false},
-                    {data: 'day', name: 'day'},
-                    {data: 'timeframe', name: 'timeframe_id'},
-                    {data: 'subject', name: 'subject_id'},
-                    {data: 'instructor', name: 'instructor_id'},
-                    {data: 'status', name: 'status'},
+                    {data: 'id', name: 'id', visible: false},
+                    {data: 'student_id', name: 'student_id'},
+                    {data: 'student_name', name: 'student_name'},
                     {data: 'action', name: 'action', orderable: false, searchable: false}
                 ]
             });
@@ -39,13 +36,10 @@
                     return false;
                 }
             });
-        },
-        create: function () {
-            
         }
     }
 
-    ClassSchedule.init();
+    Student.init();
 
 })(jQuery);
 
