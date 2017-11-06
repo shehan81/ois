@@ -14,6 +14,7 @@ class CreateTimeframesTable extends Migration
     public function up()
     {
         Schema::create('timeframes', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('timeframe_id');
             $table->time('from');
             $table->time('to');

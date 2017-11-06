@@ -1,32 +1,37 @@
 /**
  * Author : Shehan Fernando
  * Module : Instructor
- * Date   : 2017-10-27
+ * Date   : 2017-11-02
  */
 (function ($) {
-    var Student = {
+    var ClassSchedule = {
         init: function () {
             var self = this;
             self.list();
+
+            if (is_edit)
+                self.create();
         },
         list: function () {
+
             //init data table
-            var tbl = $('#student-table');
+            var tbl = $('#class-table');
             tbl.DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: 'student',
+                searching: false,
+                ajax: 'class',
                 columns: [
-                    {data: 'student_id', name: 'student_id'},
-                    {data: 'first_name', name: 'first_name'},
-                    {data: 'last_name', name: 'last_name'},
-                    {data: 'email', name: 'email'},
-                    {data: 'phone', name: 'phone'},
+                    {data: 'class_id', name: 'class_id', visible: false},
+                    {data: 'day', name: 'day'},
+                    {data: 'timeframe_id', name: 'timeframe_id'},
+                    {data: 'subject_id', name: 'subject_id'},
+                    {data: 'instructor_id', name: 'instructor_id'},
                     {data: 'status', name: 'status'},
                     {data: 'action', name: 'action', orderable: false, searchable: false}
                 ]
             });
-            
+
             //delete confirm deligation
             tbl.delegate(".confirmation-callback", "click", function ($e) {
                 if (!confirm(trans_del)) {
@@ -34,11 +39,14 @@
                     return false;
                 }
             });
+        },
+        create: function () {
+            
         }
     }
 
-    Student.init();
-    
+    ClassSchedule.init();
+
 })(jQuery);
 
 

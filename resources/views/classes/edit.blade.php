@@ -3,8 +3,8 @@
 @section('content')
 <section class="content-header">
     <h1>
-        Register a Student
-        <small> @if($method == 'create')New Student Registration form.@else Edit Student's Information @endif</small>
+        Add a Class Schedule
+        <small> @if($method == 'create')New Class Schedule form.@else Edit Class Information @endif</small>
     </h1>
 
 </section>
@@ -14,11 +14,11 @@
         <!-- left column -->
         <div class="col-md-6">
             <!-- general form elements -->
-            <div class="box box-primary">
+            <div class="box box-primary" ng-controller="scheduleController">
                 <div class="box-header with-border">
                     <ol class="breadcrumb">
                         <li><a href="{{ route('home')}}"><i class="fa fa-photo"></i> Home</a></li>
-                        <li><a href="{{ route('student.index')}}"> Students</a></li>
+                        <li><a href="{{ route('class.index')}}"> Class Schedules</a></li>
                         <li class="active">
                             @if($method == 'create')
                                 Create
@@ -41,15 +41,27 @@
                 </div>
 
                 @if($method == 'create')
-                    {!! Form::open(['method' => 'POST','route' => ['student.store']]) !!}
+                    {!! Form::open(['method' => 'POST', 'route' => ['class.store']]) !!}
                 @else
-                    {!! Form::model($student, ['method' => 'PATCH','route' => ['student.update', $student->student_id]]) !!}
+                    {!! Form::model($class, ['method' => 'PATCH','route' => ['class.update', $class->class_id]]) !!}
                 @endif
 
-                @include('forms.student')
+                @include('forms.class')
 
                 {!! Form::close() !!}
             </div>
         </div>
 </section>
 @endsection
+
+@section('modulescripts')
+    <script type="text/javascript">
+        var is_edit = true;
+    </script>
+    <script src="{{ asset('js/lib/angular/angular.min.js') }}"></script>
+    <script src="{{ asset('js/lib/angular/angular-route.min.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/controllers.js') }}"></script>
+    <script src="{{ asset('js/modules/class.js') }}"></script>
+@stop
+

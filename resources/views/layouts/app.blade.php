@@ -97,15 +97,12 @@
             </div>
             <!-- /.content-wrapper -->
         </div>
-        
+        <script> var Laravel = <?php echo json_encode([ 'csrfToken' => csrf_token()]);?></script>
         <script src="{{ asset('js/lib/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('js/lib/jquery/jquery-ui/jquery-ui.min.js') }}"></script>
         <script src="{{ asset('js/lib/jquery/jquery.dataTables.min.js') }}"></script>
         <script src="{{ asset('js/lib/bootstrap/bootstrap.min.js') }}"></script>
         <script src="{{ asset('js/lib/template/adminlte.min.js') }}"></script>
-        
-        <!-- Yukon application javascripts-->
-        <script src="{{ asset('js/app.js') }}"></script>
 
         
         @yield('modulescripts')

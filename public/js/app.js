@@ -1,22 +1,12 @@
 /**
  * Author : Shehan Fernando
  * Module : Common application javascripts
- * Date   : 2017-10-28
+ * Date   : 2017-11-03
  */
-(function ($) {
-    var App = {
-        init: function () {
-            var self = this;
-        },
-        
-    }
+var app = angular.module('yukon', ['ngRoute','controllers']);
 
-    App.init();
-    
-})(jQuery);
+app.config(function ($interpolateProvider) {
+    $interpolateProvider.startSymbol('<%');
+    $interpolateProvider.endSymbol('%>');
 
-
-
-
-
-    
+});

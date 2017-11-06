@@ -8,6 +8,10 @@
 
 namespace App\Helpers;
 
+use \App\Models\Timeframe;
+use \App\Models\Subject;
+use \App\Models\Instructor;
+
 class Helper {
 
     const ACTIONS_VIEW = 'view';
@@ -15,8 +19,14 @@ class Helper {
     const ACTIONS_DELETE = 'delete';
     const DEFAULT_TIME_ZONE = 'UTC';
     const TIME_FORMAT_DEFAULT = 'H:i:s';
-    const TIME_FORMAT_MERIDIAN  = 'g:i A';
-
+    const TIME_FORMAT_MERIDIAN = 'g:i A';
+    
+    /**
+     * Get data table actions
+     * @param type $id
+     * @param array $routes
+     * @return type
+     */
     public static function getDatatableActions($id = null, Array $routes = []) {
         $html = [];
         if (!empty($routes)) {
@@ -39,6 +49,12 @@ class Helper {
         }
     }
 
+    /**
+     * Get delete form
+     * @param type $route
+     * @param type $id
+     * @return type
+     */
     public static function getDeleteForm($route, $id) {
         return ('<form action="' . route($route, $id) . '" method="POST">
                     <input type="hidden" name="_method" value="DELETE">
@@ -47,10 +63,79 @@ class Helper {
                 csrf_field()
                 . '</form>');
     }
-
+    
+    /**
+     * Convert time
+     * @param type $time
+     * @param type $format
+     * @return type
+     */
     public static function convertFromTime($time, $format = self::TIME_FORMAT_DEFAULT) {
         date_default_timezone_set(self::DEFAULT_TIME_ZONE);
         return date($format, strtotime($time));
+    }
+
+    /**
+     * Get days of the week
+     * @return type
+     */
+    public static function getDaysOfWeek() {
+        return [
+            'Monday' => 'Monday',
+            'Tuesday' => 'Tuesday',
+            'Wednesday' => 'Wednesday',
+            'Thursday' => 'Thursday',
+            'Friday' => 'Friday',
+        ];
+    }
+    
+    /**
+     * Get available time frames
+     * @param type $timeframes
+     * @return string
+     */
+    public static function getTimeFrames($timeframes = []) {
+        
+        $timeframes = !empty($timeframes) ? $timeframes : Timeframe::all();
+
+        $result = [];
+        foreach ($timeframes as $timeframe) {
+            $result[$timeframe->timeframe_id] = $timeframe->from . ' - ' . $timeframe->to;
+        }
+        return $result;
+    }
+    
+    
+    /**
+     * Get subjects
+     * @param type $subjects
+     * @return string
+     */
+    public static function getSubjects($subjects = []) {
+        
+        $subjects = !empty($subjects) ? $subjects : Subject::all();
+        
+        $result = [];
+        foreach ($subjects as $subject) {
+            $result[$subject->subject_id] = $subject->title . ' [' . $subject->code . ']';
+        }
+        return $result;
+    }
+
+    /**
+     * Get instructors
+     * @param type $instructors
+     * @return string
+     */
+    public static function getInstructors($instructors = []) {
+        
+        $instructors = !empty($instructors) ? $instructors : Instructor::all();
+        
+        $result = [];
+        foreach ($instructors as $instructor) {
+            $result[$instructor->instructor_id] = $instructor->first_name . ' ' . $instructor->last_name;
+        }
+        return $result;
     }
 
 }

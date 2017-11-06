@@ -2,20 +2,20 @@
 
 @section('content')
 <section class="content-header">
-    <button type="button" class="btn bg-maroon btn-flat margin pull-right" onClick="location.href ='{{ route('student.create')}}'">Add Student</button>
+    <button type="button" class="btn bg-maroon btn-flat margin pull-right" onClick="location.href ='{{ route('class.create')}}'">Add Schedule</button>
     <h1>
-        Students
-        <small>Add, Edit & Delete students</small>
+        Class Schedules
+        <small>Add, Edit & Delete classes</small>
     </h1>
 </section>
 <!-- Main content -->
-<section class="content" ng-controller="instuctorListCtrl">
+<section class="content" ng-controller="classListCtrl">
     <!-- Small boxes (Stat box) -->
     <div class="box box-primary">
         <div class="box-header">
             <ol class="breadcrumb">
                 <li><a href="{{ route('home')}}"><i class="fa fa-photo"></i> Home</a></li>
-                <li class="active">Students</li>
+                <li class="active">Class Schedules</li>
             </ol>
             <div class="row">
                 <div class="col-md-12">
@@ -31,14 +31,14 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <table class="table table-bordered" id="student-table">
+            <table class="table table-bordered" id="class-table">
                 <thead>
                     <tr>
-                        <th>Registration No.</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
+                        <th>Id</th>
+                        <th>Day</th>
+                        <th>Time Frame</th>
+                        <th>Subject</th>
+                        <th>Instructor</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -53,7 +53,8 @@
     <script type="text/javascript">
         //translations via view composer
         var trans_del = JSON.parse('{!! $jstrans !!}').confirm_delete;
+        var is_edit = false;
     </script>
-    <script src="{{ asset('js/modules/student.js') }}"></script>
+    <script src="{{ asset('js/modules/class.js') }}"></script>
 @stop
 

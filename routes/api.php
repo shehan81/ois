@@ -13,6 +13,20 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+
+Route::get('/schedule', 'ScheduleManager@getAvailableTimeframes');
+
+Route::get('/schedule/days', 'ScheduleManager@getDays');
+
+Route::get('/schedule/timeframes', 'ScheduleManager@getAvailableTimeframes');
+
+Route::get('/schedule/subjects', 'ScheduleManager@getClassSubjects');
+
+Route::get('/schedule/instructors', 'ScheduleManager@getAvailableInstructors');
+
+
+

@@ -19,6 +19,7 @@ class CreateInstructorsTable extends Migration
             $table->string('first_name', 50);
             $table->string('last_name',50);
             $table->string('email', 100)->unique();
+            $table->string('subjects');
             $table->enum('status', array('Active','Inactive'));
             $table->timestamps();
         });

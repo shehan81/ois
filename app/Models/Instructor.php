@@ -12,8 +12,19 @@ class Instructor extends Model
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'status'
+        'first_name', 'last_name', 'email', 'subjects', 'status'
     ];
     
+    
     protected $primaryKey = 'instructor_id';
+    
+    /**
+     * Get subjects unserialized
+     * @param type $value
+     * @return type
+     */
+    public function getSubjectsAttribute($value)
+    {
+        return unserialize($value);
+    }
 }

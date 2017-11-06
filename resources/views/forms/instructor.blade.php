@@ -16,10 +16,21 @@
         <p class="help-block">Email must be unique</p>
     </div>
     
+    <div class="form-group col-md-12">
+        <span class='text-danger'>*</span> <label for="email">Subject(s)</label>
+        
+        <div class="form-group">
+            {!! Form::select('subjects[]', $subjects, null, array('multiple', 'style' => 'height:140px')) !!}
+        </div>
+        
+    </div>
+    
     <div class="form-group col-md-12 {{ $errors->has('status') ? ' has-error' : '' }}">
         <label for="status">Status</label>
         {!! Form::select('status', ['Active' => 'Active', 'Inactive' => 'Inactive'], null, ['class' => 'form-control']) !!}
     </div>
+    
+    
 </div>
 
 <div class="box-footer">

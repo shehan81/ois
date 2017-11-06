@@ -48,4 +48,12 @@ class Timeframe extends Model
     public function setToAttribute($value) {
         $this->attributes['to'] =  Helper::convertFromTime($value);
     }
+    
+    /**
+     * timeframes
+     * @return type
+     */
+    public function classes(){
+        return $this->hasMany(ClassSchedule::class, 'timeframe_id');
+    }
 }

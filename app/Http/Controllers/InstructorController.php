@@ -41,7 +41,7 @@ class InstructorController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        return view('instructors.edit', ["method" => 'create']);
+        return view('instructors.edit', ["method" => 'create', 'subjects' => Helper::getSubjects()]);
     }
 
     /**
@@ -55,7 +55,12 @@ class InstructorController extends Controller {
         $this->validateForm();
 
         $data = $request->all();
-
+        
+        //serializing subjects
+        if(isset($data['subjects'])){
+            $data['subjects'] = serialize($data['subjects']);
+        }
+        
         Instructor::create($data);
         return redirect()->route('instructor.index')
                         ->with('success', 'Instructor created successfully');
@@ -80,7 +85,12 @@ class InstructorController extends Controller {
     public function edit(Instructor $instructor) {
 
         $instructor = Instructor::find($instructor->instructor_id);
-        return view('instructors.edit', compact('instructor'), ["method" => 'store']);
+        
+        if(!empty($instructor->subjects)){
+            $instructor->subjects = unserialize($instructor->subjects);
+        }
+        
+        return view('instructors.edit', compact('instructor'), ["method" => 'store', 'subjects' => Helper::getSubjects()]);
     }
 
     /**
@@ -95,7 +105,13 @@ class InstructorController extends Controller {
         $this->validateForm($instructor);
 
         $data = $request->all();
-
+        
+        //serializing subjects
+        if(!empty($data['subjects'])){
+            $data['subjects'] = serialize($data['subjects']);
+        }
+        
+        
         Instructor::find($instructor->instructor_id)->update($data);
         return redirect()->route('instructor.index')
                         ->with('success', 'Instructor updated successfully');
