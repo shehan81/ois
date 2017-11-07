@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ClassSchedule;
+use App\Models\ClassStudent;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use \App\Helpers\Helper as Helper;
@@ -33,6 +34,7 @@ class ClassScheduleController extends Controller {
                             })
                             ->make(true);
         }
+
         return view('classes.index');
     }
 
@@ -65,19 +67,20 @@ class ClassScheduleController extends Controller {
 
         $data = $request->all();
 
-        ClassSchedule::create($data);
+        try {
+
+            DB::transaction(function () use ($data) {
+                return ClassSchedule::create($data);
+            });
+        } catch (\Exception $e) {
+
+            return redirect()->route('class.index')
+                            ->with('error', 'Error occurred! Couldn\'t store at this moment.');
+        }
+
+
         return redirect()->route('class.index')
                         ->with('success', 'Class Schedule created successfully');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\ClassSchedule  $classSchedule
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ClassSchedule $classSchedule) {
-        //
     }
 
     /**
@@ -109,7 +112,19 @@ class ClassScheduleController extends Controller {
         ]);
 
         $data = $request->all();
-        ClassSchedule::find($class->class_id)->update($data);
+
+        try {
+
+            DB::transaction(function () use ($class, $data) {
+
+                return ClassSchedule::find($class->class_id)->update($data);
+            });
+        } catch (\Exception $e) {
+
+            return redirect()->route('class.index')
+                            ->with('error', 'Error occurred! Couldn\'t store at this moment.');
+        }
+
         return redirect()->route('class.index')
                         ->with('success', 'Class Schedule updated successfully');
     }
@@ -125,13 +140,104 @@ class ClassScheduleController extends Controller {
             DB::transaction(function () use ($class) {
 
                 ClassSchedule::find($class->class_id)->delete();
-                return redirect()->route('class.index')
-                                ->with('success', 'Class deleted successfully');
             });
         } catch (\Exception $e) {
             return redirect()->route('class.index')
                             ->with('error', 'Error occurred! Couldn\'t delete at this moment. May be record already in use!');
         }
+
+        return redirect()->route('class.index')
+                        ->with('success', 'Class deleted successfully');
+    }
+
+    /**
+     * Assign students to class : main page
+     * @return type
+     */
+    public function assign() {
+
+        return view('classes.assign', ["method" => 'create']);
+    }
+
+    /**
+     * Storing assigned students
+     * @param Request $request
+     * @return type
+     */
+    public function assignStore(Request $request) {
+
+        request()->validate([
+            'class_id' => 'required',
+            'students' => 'required'
+        ]);
+
+        $data = $request->all();
+
+        try {
+
+            DB::transaction(function () use ($data) {
+
+                if (!empty($data['students'])) {
+                    foreach ($data['students'] as $student_id) {
+                        $data['student_id'] = $student_id;
+                        ClassStudent::create($data);
+                    }
+                }
+
+                return;
+            });
+        } catch (\Exception $e) {
+
+            return redirect()->route('class.index')
+                            ->with('error', 'Error occurred! Couldn\'t store at this moment.');
+        }
+
+        return redirect()->route('class.index')
+                        ->with('success', 'Selected students assigned successfully. You can see them on "List Students" action.');
+    }
+
+    /**
+     * Display list of students of a class
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function classStudentList($id, Request $request) {
+
+        if ($request->ajax() && $request->wantsJson()) {
+            return (new Datatables)->eloquent(ClassStudent::query()->where("class_id", $request->class_id)->with('student'))
+                            ->addColumn('action', function ($model) {
+                                return Helper::getDataTableActions($model->id, [Helper::ACTIONS_DELETE => 'remove_student']); // id : primary key of the classStudent model
+                            })->editColumn('student_name', function ($model) {
+                        return $model->student->full_name;
+                    })->make(true);
+        }
+
+        return view('classes.student', ['id' => $id]);
+    }
+
+    /**
+     * Remove the specified student from a class
+     *
+     * @param  \App\ClassStudent  $class
+     * @return \Illuminate\Http\Response
+     */
+    public function removeStudent(Request $request) {
+        try {
+            $class_id = DB::transaction(function () use ($request) {
+
+                        $ClassStudent = ClassStudent::find($request->_id);
+                        $class_id = $ClassStudent->class_id;
+                        $ClassStudent->delete();
+
+                        return $class_id;
+                    });
+        } catch (\Exception $e) {
+            return redirect()->route('class.index')
+                            ->with('error', 'Error occurred! Couldn\'t delete at this moment. May be record already in use!');
+        }
+
+        return redirect()->route('class_student', $class_id)
+                        ->with('success', 'Class deleted successfully');
     }
 
 }

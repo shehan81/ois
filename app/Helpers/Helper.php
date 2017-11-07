@@ -11,6 +11,7 @@ namespace App\Helpers;
 use \App\Models\Timeframe;
 use \App\Models\Subject;
 use \App\Models\Instructor;
+use App\Models\ClassSchedule;
 
 class Helper {
 
@@ -60,10 +61,11 @@ class Helper {
      * @param type $id
      * @return type
      */
-    public static function getDeleteForm($route, $id) {
+    public static function getDeleteForm($route, $id = null) {
         return ('<form action="' . route($route, $id) . '" method="POST">
                     <input type="hidden" name="_method" value="DELETE">
                     <button type="submit" class="btn-xs  btn btn-xs btn-danger confirmation-callback" data-placement="left">
+                    <input type="hidden" name="_id" value="' . $id . '">
                     <span class="fa fa-remove" aria-hidden="true"> Delete</span></button>' .
                 csrf_field()
                 . '</form>');
@@ -142,6 +144,11 @@ class Helper {
         return $result;
     }
 
+    /**
+     * Classes dropdown
+     * @param type $classes
+     * @return string
+     */
     public static function getClassesDropDown($classes = []) {
 
         $result = [];
@@ -155,6 +162,11 @@ class Helper {
         return $result;
     }
 
+    /**
+     * get available students
+     * @param type $timeframes
+     * @return type
+     */
     public static function getAvailableStudents($timeframes = []) {
 
         $timeframes = !empty($timeframes) ? $timeframes : Timeframe::all();
@@ -166,8 +178,12 @@ class Helper {
         return $result;
     }
 
+    /**
+     * get students
+     * @param type $students
+     * @return type
+     */
     public static function getStudents($students = []) {
-
         $result = [];
 
         if (!empty($students)) {
@@ -176,6 +192,72 @@ class Helper {
             }
         }
         return $result;
+    }
+    
+    /**
+     * get schedule
+     * @return type
+     */
+
+    public static function getScheduleTable() {
+        
+        $days = self::getDaysOfWeek();
+        $c = self::getCSSClasses(); //colors
+        
+        $schedule = [];
+        
+        foreach ($days as $day) {
+            $classes = ClassSchedule::query()
+                    ->where("day", $day)
+                    ->where("status", 'Active')
+                    ->with('timeframe')
+                    ->with('subject')
+                    ->with('instructor')
+                    ->get();
+
+            $schedule[$day] = [];
+
+            if (!empty($classes)) {
+                foreach ($classes as $class) {
+
+                    array_push($schedule[$day], ['classes' => [
+                            'title' => $class->subject->title,
+                            'start' => $class->timeframe->getOriginal('from'),
+                            'to' => $class->timeframe->getOriginal('to'),
+                            'color' => $c[rand(0, 4)]
+                        ]
+                    ]);
+                }
+            }
+        }
+
+        return json_encode($schedule);
+    }
+
+    /**
+     * Get time range for the timeline
+     * @param type $timeframes
+     * @return string
+     */
+    public static function getTimeRange($timeframes = []) {
+        
+        $start = '10:00';
+        $t = [$start];
+        for ($i = 1; $i < 12; $i++) {
+            array_push($t, date('H:i', strtotime($start . ' +' . $i . ' hour')));
+        }
+        return $t;
+    }
+
+    /**
+     * define css colors array
+     * @return type
+     */
+    public static function getCSSClasses() {
+
+        return [
+            'bg-light-blue', 'bg-green', 'bg-purple', 'bg-teal', 'bg-yellow'
+        ];
     }
 
 }

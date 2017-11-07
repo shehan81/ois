@@ -62,19 +62,19 @@ class InstructorController extends Controller {
             $data['subjects'] = serialize($data['subjects']);
         }
 
-        Instructor::create($data);
+        try {
+
+            DB::transaction(function () use ($data) {
+                return Instructor::create($data);
+            });
+        } catch (\Exception $e) {
+
+            return redirect()->route('instructor.index')
+                            ->with('error', 'Error occurred! Couldn\'t store at this moment.');
+        }
+
         return redirect()->route('instructor.index')
                         ->with('success', 'Instructor created successfully');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Instructor  $instructor
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Instructor $instructor) {
-        //
     }
 
     /**
@@ -108,8 +108,17 @@ class InstructorController extends Controller {
             $data['subjects'] = serialize($data['subjects']);
         }
 
+        try {
 
-        Instructor::find($instructor->instructor_id)->update($data);
+            DB::transaction(function () use ($instructor, $data) {
+                return Instructor::find($instructor->instructor_id)->update($data);
+            });
+        } catch (\Exception $e) {
+
+            return redirect()->route('student.index')
+                            ->with('error', 'Error occurred! Couldn\'t store at this moment.');
+        }
+
         return redirect()->route('instructor.index')
                         ->with('success', 'Instructor updated successfully');
     }
@@ -126,13 +135,14 @@ class InstructorController extends Controller {
             DB::transaction(function () use ($instructor) {
 
                 Instructor::find($instructor->instructor_id)->delete();
-                return redirect()->route('instructor.index')
-                                ->with('success', 'Instructor deleted successfully');
             });
         } catch (\Exception $e) {
             return redirect()->route('instructor.index')
                             ->with('error', 'Error occurred! Couldn\'t delete at this moment. May be record already in use!');
         }
+
+        return redirect()->route('instructor.index')
+                        ->with('success', 'Instructor deleted successfully');
     }
 
     /**

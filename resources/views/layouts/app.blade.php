@@ -22,7 +22,12 @@
         
         <!-- Theme style -->
         <link rel="stylesheet" href="{{ asset('css/template/AdminLTE.min.css') }}">
+        
         <link rel="stylesheet" href="{{ asset('css/template/_all-skins.min.css') }}">
+        
+        <link rel="stylesheet" href="{{ asset('plugins/scheduler/css/style.css') }}">
+        
+        <link rel="stylesheet" href="{{ asset('plugins/scheduler/css/reset.css') }}">
         
         <!-- Application Custom CSS -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -59,8 +64,8 @@
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
                             <!-- Messages: style can be found in dropdown.less-->
-                            <li class="dropdown user user-menu">
-                                <a href="{{ route('home') }}" class="dropdown-toggle" data-toggle="dropdown">
+                            <li>
+                                <a href="{{ route('home') }}">
                                     <span class="hidden-xs">Home</span>
                                 </a>
                             </li>
@@ -102,13 +107,13 @@
             </div>
             <!-- /.content-wrapper -->
         </div>
+        
         <script> var Laravel = <?php echo json_encode([ 'csrfToken' => csrf_token()]);?></script>
         <script src="{{ asset('js/lib/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('js/lib/jquery/jquery-ui/jquery-ui.min.js') }}"></script>
         <script src="{{ asset('js/lib/jquery/jquery.dataTables.min.js') }}"></script>
         <script src="{{ asset('js/lib/bootstrap/bootstrap.min.js') }}"></script>
         <script src="{{ asset('js/lib/template/adminlte.min.js') }}"></script>
-
         
         @yield('modulescripts')
     </body>

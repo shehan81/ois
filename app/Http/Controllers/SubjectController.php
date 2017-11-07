@@ -56,19 +56,19 @@ class SubjectController extends Controller {
 
         $data = $request->all();
 
-        Subject::create($data);
+        try {
+            DB::transaction(function () use ($data) {
+
+                return Subject::create($data);
+            });
+        } catch (\Exception $e) {
+
+            return redirect()->route('timeframe.index')
+                            ->with('error', 'Error occurred! Couldn\'t store at this moment.');
+        }
+
         return redirect()->route('subject.index')
                         ->with('success', 'Subject created successfully');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Subject  $subject
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Subject $subject) {
-        //
     }
 
     /**
@@ -94,7 +94,18 @@ class SubjectController extends Controller {
 
         $data = $request->all();
 
-        Subject::find($subject->subject_id)->update($data);
+        try {
+            DB::transaction(function () use ($subject, $data) {
+
+                return Subject::find($subject->subject_id)->update($data);
+            });
+        } catch (\Exception $e) {
+
+            return redirect()->route('subject.index')
+                            ->with('error', 'Error occurred! Couldn\'t store at this moment.');
+        }
+
+
         return redirect()->route('subject.index')
                         ->with('success', 'Subject updated successfully');
     }
@@ -110,15 +121,15 @@ class SubjectController extends Controller {
         try {
             DB::transaction(function () use ($subject) {
 
-
                 Subject::find($subject->subject_id)->delete();
-                return redirect()->route('subject.index')
-                                ->with('success', 'Subject deleted successfully');
             });
         } catch (\Exception $e) {
             return redirect()->route('subject.index')
                             ->with('error', 'Error occurred! Couldn\'t delete at this moment. May be record already in use!');
         }
+
+        return redirect()->route('subject.index')
+                        ->with('success', 'Subject deleted successfully');
     }
 
     /**

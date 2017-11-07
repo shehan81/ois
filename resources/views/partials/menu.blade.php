@@ -11,11 +11,17 @@ if (count($segments) > 0) {
 }
 ?>
 <ul class="sidebar-menu" data-widget="tree">
-    <li class="header">MAIN NAVIGATION</li>
+    <li class="header" style="text-align: center">Ocean Informatics Systems</li>
+    
+    <li class="{{ $module ==  'home' ? 'active' : ''  }}">
+        <a href="{{ route('home')}}">
+            <i class="fa fa-home"></i> <span>Home</span>
+        </a>
+    </li>
 
     <li class="treeview {{ $module ==  'timeframe' ? 'active' : ''  }}">
         <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Time frames</span>
+            <i class="fa fa-clock-o"></i> <span>Time frames</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -28,7 +34,7 @@ if (count($segments) > 0) {
     
      <li class="treeview {{ $module ==  'subject' ? 'active' : ''  }}">
         <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Subjects</span>
+            <i class="fa fa-book"></i> <span>Subjects</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -41,7 +47,7 @@ if (count($segments) > 0) {
 
     <li class="treeview {{ $module ==  'instructor' ? 'active' : ''  }}">
         <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Instructors</span>
+            <i class="fa fa-user"></i> <span>Instructors</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -54,7 +60,7 @@ if (count($segments) > 0) {
 
     <li class="treeview {{ $module ==  'student' ? 'active' : ''  }}">
         <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Students</span>
+            <i class="fa  fa-child"></i> <span>Students</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -67,7 +73,7 @@ if (count($segments) > 0) {
 
     <li class="treeview {{ $module ==  'class' ? 'active' : ''  }}">
         <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Classes</span>
+            <i class="fa fa-users"></i> <span>Classes</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>

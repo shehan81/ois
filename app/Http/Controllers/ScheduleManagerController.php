@@ -1,4 +1,9 @@
 <?php
+/**
+ * Author : Shehan Fernando
+ * Module : Schedule Manager Controller
+ * Date   : 2017-11-03
+ */
 
 namespace App\Http\Controllers;
 
@@ -10,9 +15,8 @@ use App\Models\ClassStudent;
 use App\Models\Subject;
 use App\Models\Instructor;
 use App\Helpers\Helper;
-use Illuminate\Support\Facades\DB;
 
-class ScheduleManager extends Controller {
+class ScheduleManagerController extends Controller {
 
     /**
      * Get days of the week
@@ -146,15 +150,15 @@ class ScheduleManager extends Controller {
      * @return type
      */
     public function getStudentsAvailable(Request $request) {
-        
+
         $class_id = $request->class_id;
-        
+
         $students = Student::whereNotIn('student_id', function($query) use($class_id) {
                     $query->select('student_id')
                             ->from(with(new ClassStudent)->getTable())
                             ->where('class_id', $class_id);
                 })->get();
-                
+
 
         return response()->json(Helper::getStudents($students), 200);
     }

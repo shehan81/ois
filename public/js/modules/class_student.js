@@ -4,7 +4,7 @@
  * Date   : 2017-11-06
  */
 (function ($) {
-    var Student = {
+    var Class_Student = {
         init: function () {
             var self = this;
             self.list();
@@ -39,7 +39,7 @@
         }
     }
 
-    Student.init();
+    Class_Student.init();
 
 })(jQuery);
 

@@ -58,19 +58,19 @@ class StudentController extends Controller {
 
         $data = $request->all();
 
-        Student::create($data);
+        try {
+
+            DB::transaction(function () use ($data) {
+                return Student::create($data);
+            });
+        } catch (\Exception $e) {
+
+            return redirect()->route('student.index')
+                            ->with('error', 'Error occurred! Couldn\'t store at this moment.');
+        }
+
         return redirect()->route('student.index')
                         ->with('success', 'Student created successfully');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Student  $student
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Student $student) {
-        //
     }
 
     /**
@@ -96,7 +96,17 @@ class StudentController extends Controller {
 
         $data = $request->all();
 
-        Student::find($student->student_id)->update($data);
+        try {
+
+            DB::transaction(function () use ($student, $data) {
+                return Student::find($student->student_id)->update($data);
+            });
+        } catch (\Exception $e) {
+
+            return redirect()->route('student.index')
+                            ->with('error', 'Error occurred! Couldn\'t store at this moment.');
+        }
+
         return redirect()->route('student.index')
                         ->with('success', 'Student updated successfully');
     }
@@ -113,16 +123,16 @@ class StudentController extends Controller {
 
             DB::transaction(function () use ($student) {
 
-                Student::find($student->student_id)->delete();
-
-                return redirect()->route('student.index')
-                                ->with('success', 'Student deleted successfully');
+                return Student::find($student->student_id)->delete();
             });
         } catch (\Exception $e) {
-            
+
             return redirect()->route('student.index')
                             ->with('error', 'Error occurred! Couldn\'t delete at this moment. May be record already in use!');
         }
+
+        return redirect()->route('student.index')
+                        ->with('success', 'Student deleted successfully');
     }
 
     /**

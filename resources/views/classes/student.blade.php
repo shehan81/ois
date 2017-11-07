@@ -2,7 +2,7 @@
 
 @section('content')
 <section class="content-header">
-    <button type="button" class="btn bg-maroon btn-flat margin pull-right" onClick="location.href ='{{ route('class.create')}}'">Add Schedule</button>
+    <button type="button" class="btn bg-maroon btn-flat margin pull-right" onClick="location.href ='{{ route('assign')}}'">Assign Students</button>
     <h1>
         Class Students
         <small>Mange Student's of the class</small>

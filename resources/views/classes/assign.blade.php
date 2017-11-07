@@ -53,7 +53,7 @@
                 </div>
 
                 @if($method == 'create')
-                    {!! Form::open(['method' => 'POST', 'route' => ['assign_student']]) !!}
+                    {!! Form::open(['method' => 'POST', 'route' => ['assign_store']]) !!}
                 @else
                     {!! Form::model($class, ['method' => 'PATCH','route' => ['class.update', $class->class_id]]) !!}
                 @endif

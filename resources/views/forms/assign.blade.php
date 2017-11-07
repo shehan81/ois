@@ -1,5 +1,11 @@
 <div class="box-body">
      <div class="row">
+        <div class="form-group col-md-12">
+            <p class='text-info'>Use the <strong>Day/ Timeframe</strong> filters and choose a class to assign students. You can assign multiple students</p>
+        </div>
+    </div>
+    
+     <div class="row">
         <div class="form-group col-md-6 {{ $errors->has('day') ? ' has-error' : ''}}">
             {{ csrf_field()}}
             <label for="day">Class Day</label>
@@ -40,11 +46,7 @@
         </div>
     </div>
     
-    <div class="row">
-        <div class="form-group col-md-12">
-            <p class='text-info'>Use the Day/ Timeframe filters and choose a class to assign students. You can assign multiple students</p>
-        </div>
-    </div>
+   
     
     <div class='row'>
         <div class="form-group col-md-12">

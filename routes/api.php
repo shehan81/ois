@@ -13,26 +13,21 @@ use Illuminate\Http\Request;
 |
 */
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
+Route::get('/schedule', 'ScheduleManagerController@getSchedule');
 
+Route::get('/schedule/days', 'ScheduleManagerController@getDays');
 
-Route::get('/schedule', 'ScheduleManager@getSchedule');
+Route::get('/schedule/timeframes', 'ScheduleManagerController@getAvailableTimeframes');
 
-Route::get('/schedule/days', 'ScheduleManager@getDays');
+Route::get('/schedule/get/timeframes', 'ScheduleManagerController@getScheduleTimeframes');
 
-Route::get('/schedule/timeframes', 'ScheduleManager@getAvailableTimeframes');
+Route::get('/schedule/get/classes', 'ScheduleManagerController@getClassesForTimeframe');
 
-Route::get('/schedule/get/timeframes', 'ScheduleManager@getScheduleTimeframes');
+Route::get('/schedule/get/students', 'ScheduleManagerController@getStudentsAvailable');
 
-Route::get('/schedule/get/classes', 'ScheduleManager@getClassesForTimeframe');
+Route::get('/schedule/subjects', 'ScheduleManagerController@getClassSubjects');
 
-Route::get('/schedule/get/students', 'ScheduleManager@getStudentsAvailable');
-
-Route::get('/schedule/subjects', 'ScheduleManager@getClassSubjects');
-
-Route::get('/schedule/instructors', 'ScheduleManager@getAvailableInstructors');
+Route::get('/schedule/instructors', 'ScheduleManagerController@getAvailableInstructors');
 
 
 

@@ -19,23 +19,29 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('instructor', 'InstructorController');
+Route::resource('instructor', 'InstructorController', ['except' => ['show']]);
 
-Route::resource('subject', 'SubjectController');
+Route::resource('subject', 'SubjectController', ['except' => ['show']]);
 
-Route::resource('student', 'StudentController');
+Route::resource('student', 'StudentController', ['except' => ['show']]);
 
-Route::resource('timeframe', 'TimeframeController');
+Route::resource('timeframe', 'TimeframeController', ['except' => ['show']]);
 
-Route::get('/class/assign', 'ClassStudentController@assign')->name('assign');
+Route::get('/class/assign', 'ClassScheduleController@assign')->name('assign');
 
-Route::post('/class/assign', 'ClassStudentController@assignStore')->name('assign_student');
+Route::post('/class/assign', 'ClassScheduleController@assignStore')->name('assign_store');
 
-Route::get('/class/student/{id}', 'ClassStudentController@index')->name('class_student');
+Route::get('/class/student/{id}', 'ClassScheduleController@classStudentList')->name('class_student');
 
-Route::delete('/class/student/distroy/{id}', 'ClassStudentController@destroy')->name('class_destroy');
+Route::delete('/class/student/{id}', 'ClassScheduleController@removeStudent')->name('remove_student');
 
-Route::resource('class', 'ClassScheduleController');
+Route::resource('class', 'ClassScheduleController', ['except' => ['show']]);
+
+
+
+
+
+
 
 
 

@@ -65,8 +65,11 @@ class TimeframeController extends Controller {
         $this->validateForm(null, $data);
 
         try {
-
-            Timeframe::create($data);
+            
+            DB::transaction(function () use ($data) {
+                return Timeframe::create($data);
+            });
+            
         } catch (QueryException $e) {
             if ($e->getCode() == CustomHandler::DUPLICATE_ERROR) {
 
@@ -77,16 +80,6 @@ class TimeframeController extends Controller {
         }
         return redirect()->route('timeframe.index')
                         ->with('success', 'Time frame created successfully');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Timeframe  $timeframe
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Timeframe $timeframe) {
-        //
     }
 
     /**
@@ -114,8 +107,14 @@ class TimeframeController extends Controller {
         $data = $request->all();
 
         try {
-            Timeframe::find($timeframe->timeframe_id)->update($data);
+            DB::transaction(function () use ($timeframe, $data) {
+                
+                return Timeframe::find($timeframe->timeframe_id)->update($data);
+                
+            });
+            
         } catch (QueryException $e) {
+
             if ($e->getCode() == CustomHandler::DUPLICATE_ERROR) {
 
                 $errors = (new MessageBag())->add('validation.duplicate_time', 'Duplicate times are given.');
@@ -140,13 +139,14 @@ class TimeframeController extends Controller {
             DB::transaction(function () use ($timeframe) {
 
                 Timeframe::find($timeframe->timeframe_id)->delete();
-                return redirect()->route('timeframe.index')
-                                ->with('success', 'Time frame deleted successfully');
             });
         } catch (\Exception $e) {
             return redirect()->route('timeframe.index')
                             ->with('error', 'Error occurred! Couldn\'t delete at this moment. May be record already in use!');
         }
+
+        return redirect()->route('timeframe.index')
+                        ->with('success', 'Time frame deleted successfully');
     }
 
     /**
@@ -159,7 +159,6 @@ class TimeframeController extends Controller {
         //custom validators
         $is_conflict = "is_conflicts:h:i A";
         $is_greater = "is_time_greater:h:i A";
-        //$is_unique = "is_unique_times:from | unique:timeframes,to";
 
         switch (request()->method()) {
             case "PUT":
