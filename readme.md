@@ -12,27 +12,27 @@
 Database needs to be build Using php artisan migrate.
 - Go to command line
 - locate to the project folder
-- execute the command "php artisan migrate"
+- execute the command **php artisan migrate**
 - if any error occured during the migrate following needs to be executed 
-  "php artisan migrate:fresh"
+  **php artisan migrate:fresh**
 
 - To restore sample data, use the following command
-  "php artisan db:seed"
+  **php artisan db:seed**
 
-- In case the above fails for any reason, vx.sql file is added on /db folder which has
+- In case the above fails for any reason, db.sql file is added on /sample_db folder which has
   a full dump of the app with the schema and data both.
-
 
 # Application Setup
 
 - Uncompressed source code must be put on a document root which has a virtual host setup.
-   Or it could be run on using executing "php artisan serve" command.
+   Or it could be run on using executing **php artisan serve** command.
 
 - If any issue occurres issue the follwoing commands,
-  composer update
-  composer dump-autoload
+  **composer update**
+  **composer dump-autoload**
 
-# Case: Manage teachers and students along with the classes they take. Students can be assigned and removed from the classes.
+# Case: 
+Manage teachers and students along with the classes they take. Students can be assigned and removed from the classes.
 
 ## Assumptions:  
 1.	System has one administrator login to operate.
