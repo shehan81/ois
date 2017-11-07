@@ -1,53 +1,63 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+# Teacher Management System
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+# Requirements
+- PHP 7.0.1
+- Apache 2.4.3
+- MySQL 5.7.14
+- Composer dependency manager
+- Laravel 5.5 framework (Already exists in the project)
+- Bash / command line
 
-## About Laravel
+# Database Setup
+Database needs to be build Using php artisan migrate.
+- Go to command line
+- locate to the project folder
+- execute the command "php artisan migrate"
+- if any error occured during the migrate following needs to be executed 
+  "php artisan migrate:fresh"
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+- To restore sample data, use the following command
+  "php artisan db:seed"
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- In case the above fails for any reason, vx.sql file is added on /db folder which has
+  a full dump of the app with the schema and data both.
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
 
-## Learning Laravel
+# Application Setup
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
+- Uncompressed source code must be put on a document root which has a virtual host setup.
+   Or it could be run on using executing "php artisan serve" command.
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+- If any issue occurres issue the follwoing commands,
+  composer update
+  composer dump-autoload
 
-## Laravel Sponsors
+# Case: Manage teachers and students along with the classes they take. Students can be assigned and removed from the classes.
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](http://patreon.com/taylorotwell):
+## Assumptions:  
+1.	System has one administrator login to operate.
+2.	A week is from Monday to Friday.
+3.	Created time schedule is repeated in every week.
+4.	There is only one hall in the institute. (No parallel classes)
+5.	Instructor can teach one or many subjects.
+6.	Admin has to create the definitions first in order to proceed. Definitions are time frames, subjects, instructors, students. Sample data is given in the installation.
 
-- **[Vehikl](http://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Styde](https://styde.net)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
+## Features:
+1.	User can login
+2.	User will be directed to home page
+3.	User can logout
+4.	User has to define timeframes. (add, edit, delete)
+5.	User has to define subjects. Subject code is unique. (add, edit, delete)
+6.	User has to add instructors.  (add, edit, delete)
+7.	User has to add students. (add, edit, delete) 
+8.	User has to create a class. When creating the data will be loaded as the availability of each component. 
+9.	User has to assign students to a class. When adding data will be loaded as the availability of each component. Ex: When selecting a timeframe, only applicable subjects are loaded in the next element. This will prevent the duplication and make the usability.
+10.	User can remove students.
+11.	A class cannot be deleted if students are assigned already.
+12.	Timeframe, subject, instructors are not to be deleted if it is used for a class already.
 
-## Contributing
+## Features to be implemented in the next phase:
+1.	Class room to be added as a definition. When creating a class schedule, the class room attribute also stored to provide the support of multiple classes at the same time.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+2.	Admin option will be added to choose the schedule method. This offers a fixed schedule as well as a calendar based schedule. So the date factor is to be considered. A calendar control will be added apart from the time frame.
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
