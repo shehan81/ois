@@ -18,6 +18,8 @@ app.controller('scheduleController', ['$scope', '$http', '$routeParams', '$locat
 
         //on change event func to get avaialbe timeframes
         $scope.getTimeFrames = function () {
+            $('.box-primary').loader(true);
+            
             $http.get('/api/schedule/timeframes', {
                 params: {
                     day: $scope.schedule.day
@@ -25,6 +27,7 @@ app.controller('scheduleController', ['$scope', '$http', '$routeParams', '$locat
             }).then(function successCallback(response) {
                 if (response.data) {
                     $scope.timeframes = response.data;
+                    $('.box-primary').loader(false);
                 }
             }, function errorCallback(error) {
                 //todo
@@ -33,6 +36,7 @@ app.controller('scheduleController', ['$scope', '$http', '$routeParams', '$locat
 
         //get subjects
         $scope.getSubjects = function () {
+            $('.box-primary').loader(true);
             $http.get('/api/schedule/subjects', {
                 params: {
                     day: $scope.schedule.day,
@@ -41,6 +45,7 @@ app.controller('scheduleController', ['$scope', '$http', '$routeParams', '$locat
             }).then(function successCallback(response) {
                 if (response.data) {
                     $scope.subjects = response.data;
+                    $('.box-primary').loader(false);
                 }
             }, function errorCallback(error) {
                 //todo
@@ -49,6 +54,7 @@ app.controller('scheduleController', ['$scope', '$http', '$routeParams', '$locat
 
         //get instructors
         $scope.getInstructors = function () {
+            $('.box-primary').loader(true);
             $http.get('/api/schedule/instructors', {
                 params: {
                     subject: $scope.schedule.subject_id
@@ -56,6 +62,7 @@ app.controller('scheduleController', ['$scope', '$http', '$routeParams', '$locat
             }).then(function successCallback(response) {
                 if (response.data) {
                     $scope.instructors = response.data;
+                    $('.box-primary').loader(false);
                 }
             }, function errorCallback(error) {
                 //todo
@@ -67,7 +74,6 @@ app.controller('scheduleController', ['$scope', '$http', '$routeParams', '$locat
 app.controller('assignController', ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
 
         $scope.schedule = {};
-
         $http.get('/api/schedule/days', {
             params: {
             }
@@ -82,6 +88,7 @@ app.controller('assignController', ['$scope', '$http', '$routeParams', '$locatio
 
         //on change event func to get avaialbe timeframes
         $scope.getTimeFrames = function () {
+            $('.box-primary').loader(true);
             $http.get('/api/schedule/get/timeframes', {
                 params: {
                     day: $scope.schedule.day
@@ -89,6 +96,7 @@ app.controller('assignController', ['$scope', '$http', '$routeParams', '$locatio
             }).then(function successCallback(response) {
                 if (response.data) {
                     $scope.timeframes = response.data;
+                    $('.box-primary').loader(false);
                 }
             }, function errorCallback(error) {
                 //todo
@@ -97,6 +105,7 @@ app.controller('assignController', ['$scope', '$http', '$routeParams', '$locatio
         
         //get classes
         $scope.getClasses = function () {
+            $('.box-primary').loader(true);
             $http.get('/api/schedule/get/classes', {
                 params: {
                     day: $scope.schedule.day,
@@ -105,6 +114,7 @@ app.controller('assignController', ['$scope', '$http', '$routeParams', '$locatio
             }).then(function successCallback(response) {
                 if (response.data) {
                     $scope.classes = response.data;
+                    $('.box-primary').loader(false);
                 }
             }, function errorCallback(error) {
                 //todo
@@ -114,6 +124,7 @@ app.controller('assignController', ['$scope', '$http', '$routeParams', '$locatio
         //get students
         $scope.getStudents = function () {
             if($scope.schedule.class_id){
+                $('.box-primary').loader(true);
                 $http.get('/api/schedule/get/students', {
                     params: {
                         day: $scope.schedule.day,
@@ -123,6 +134,7 @@ app.controller('assignController', ['$scope', '$http', '$routeParams', '$locatio
                     }).then(function successCallback(response) {
                         if (response.data) {
                             $scope.students = response.data;
+                            $('.box-primary').loader(false);
                         }
                     }, function errorCallback(error) {
                         //todo
